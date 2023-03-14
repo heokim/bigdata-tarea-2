@@ -1,0 +1,474 @@
+CREATE TABLE funcionarios_der.PROFESION (
+                profesion_id INTEGER NOT NULL,
+                descripcion VARCHAR(220),
+                CONSTRAINT profesion_id PRIMARY KEY (profesion_id)
+);
+COMMENT ON TABLE funcionarios_der.PROFESION IS 'listado de profeciones que pueden tener los funcionarios, puede tener uno o varios';
+COMMENT ON COLUMN funcionarios_der.PROFESION.descripcion IS 'descripcionnombre de la profesion
+
+Corresponde a la profesión del servidor público.';
+
+
+CREATE TABLE funcionarios_der.FUNCION (
+                funcion_id INTEGER NOT NULL,
+                descripcion VARCHAR NOT NULL,
+                CONSTRAINT funcion_id PRIMARY KEY (funcion_id)
+);
+COMMENT ON TABLE funcionarios_der.FUNCION IS 'funcion que se reguiere que se cumpla en el rubro, de parte del funcionario contratado';
+COMMENT ON COLUMN funcionarios_der.FUNCION.descripcion IS 'Función que realmente cumple el funcionario público en la institución, que muchas veces difiere del cargo que le fuera asignado.';
+
+
+CREATE TABLE funcionarios_der.FUENTE_FINANCIAMIENTO (
+                fuente_financiamiento_id SMALLINT NOT NULL,
+                descripcion SMALLINT,
+                CONSTRAINT fuente_financiamiento_pk PRIMARY KEY (fuente_financiamiento_id)
+);
+COMMENT ON COLUMN funcionarios_der.FUENTE_FINANCIAMIENTO.descripcion IS 'codigo de la linea presupuestaria {10, 20, 30}';
+
+
+CREATE TABLE funcionarios_der.CARGO (
+                cargo_id INTEGER NOT NULL,
+                descripcion VARCHAR(180) NOT NULL,
+                CONSTRAINT cargo_id PRIMARY KEY (cargo_id)
+);
+COMMENT ON COLUMN funcionarios_der.CARGO.descripcion IS 'Cargo que cumple el funcionario.
+
+Nivel jerárquico que se le asigna al funcionario dentro de la organización y es establecida en el anexo de personal del Presupuesto General de la Nación.';
+
+
+CREATE TABLE funcionarios_der.dummy (
+                id SMALLINT NOT NULL,
+                CONSTRAINT dummy_pk PRIMARY KEY (id)
+);
+
+
+CREATE TABLE funcionarios_der.CATEGORIA (
+                categoria_id INTEGER NOT NULL,
+                descripcion VARCHAR(10) NOT NULL,
+                CONSTRAINT categoria_pk PRIMARY KEY (categoria_id)
+);
+COMMENT ON COLUMN funcionarios_der.CATEGORIA.descripcion IS 'codigo de la categoria del rubro.
+
+Corresponde a la clasificación establecida para un puesto, dependiendo del nivel jerárquico y otros parámetros de clasificación funcional.';
+
+
+CREATE TABLE funcionarios_der.LINEA (
+                linea_id INTEGER NOT NULL,
+                descripcion VARCHAR(16),
+                CONSTRAINT linea_pk PRIMARY KEY (linea_id)
+);
+COMMENT ON COLUMN funcionarios_der.LINEA.linea_id IS 'id de la linea de presupuesto';
+COMMENT ON COLUMN funcionarios_der.LINEA.descripcion IS 'codigo de la linea presupuestaria.
+
+Se refiere al código presupuestario asignado a una categoría en la Ley de Presupuesto General de la Nación.';
+
+
+CREATE TABLE funcionarios_der.OBJETO_GASTO (
+                objeto_gasto_id INTEGER NOT NULL,
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(225),
+                CONSTRAINT objeto_gasto_pk PRIMARY KEY (objeto_gasto_id)
+);
+COMMENT ON TABLE funcionarios_der.OBJETO_GASTO IS 'tabla donde se registran los objetos de gastos. esto va relacionado al rubro';
+COMMENT ON COLUMN funcionarios_der.OBJETO_GASTO.objeto_gasto_id IS 'id del objeto de gasto';
+COMMENT ON COLUMN funcionarios_der.OBJETO_GASTO.codigo IS 'Corresponde al listado ordenado de la clasificación de bienes y servicios que el Gobierno demanda para desarrollar sus acciones, agrupándolas en niveles, grupos y conceptos, establecido en el Presupuesto General de la Nación.';
+COMMENT ON COLUMN funcionarios_der.OBJETO_GASTO.descripcion IS 'descripcion del objeto de gasto. (concepto)
+
+Corresponde a la descripción del objeto de gasto.';
+
+
+CREATE TABLE funcionarios_der.RUBRO (
+                rubro_id BIGINT NOT NULL,
+                categoria_id INTEGER NOT NULL,
+                linea_id INTEGER NOT NULL,
+                cargo_id INTEGER NOT NULL,
+                funcion_id INTEGER NOT NULL,
+                CONSTRAINT rubro_id PRIMARY KEY (rubro_id)
+);
+COMMENT ON TABLE funcionarios_der.RUBRO IS 'tabla de rubros. es la actividad por la se necesita contrar a una persona. 
+
+engloba varias especificaciones';
+COMMENT ON COLUMN funcionarios_der.RUBRO.rubro_id IS 'id del rubro';
+COMMENT ON COLUMN funcionarios_der.RUBRO.linea_id IS 'id de la linea de presupuesto';
+COMMENT ON COLUMN funcionarios_der.RUBRO.funcion_id IS 'funcion que se requiera en el rubro';
+
+
+CREATE TABLE funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE (
+                rubro_objeto_gasto_detalle_id INTEGER NOT NULL,
+                rubro_id BIGINT NOT NULL,
+                objeto_gasto_id INTEGER NOT NULL,
+                fuente_financiamiento_id SMALLINT NOT NULL,
+                monto_presupuestado INTEGER NOT NULL,
+                CONSTRAINT rubro_objeto_gasto_detalle_pk PRIMARY KEY (rubro_objeto_gasto_detalle_id)
+);
+COMMENT ON TABLE funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE IS 'tabla de la relacion entra objeto de gastos y al rubro que va presupuestado. mas la fuente de financiamiento';
+COMMENT ON COLUMN funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE.rubro_objeto_gasto_detalle_id IS 'id del presupuesto';
+COMMENT ON COLUMN funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE.rubro_id IS 'rubro al que corresponde el detalle de gasto';
+COMMENT ON COLUMN funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE.objeto_gasto_id IS 'id del objeto de gasto';
+COMMENT ON COLUMN funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE.fuente_financiamiento_id IS 'id de la fuente de financimento';
+COMMENT ON COLUMN funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE.monto_presupuestado IS 'monto presupuestado.
+Corresponde a los fondos establecidos (monto bruto) para ellos objetos del gasto asignados al funcionario.';
+
+
+CREATE SEQUENCE funcionarios_der.tipo_funcionario_tipo_funcionario_id_seq;
+
+CREATE TABLE funcionarios_der.tipo_funcionario (
+                tipo_funcionario_id SMALLINT NOT NULL DEFAULT nextval('funcionarios_der.tipo_funcionario_tipo_funcionario_id_seq'),
+                codigo CHAR(2) NOT NULL,
+                descripcion VARCHAR(24) NOT NULL,
+                activo BOOLEAN NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT tipo_funcionario_pk PRIMARY KEY (tipo_funcionario_id)
+);
+COMMENT ON TABLE funcionarios_der.tipo_funcionario IS 'Tabala paramétrica para tipo de funcionario.';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.tipo_funcionario_id IS 'Clave primaria de la tabla.';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.codigo IS 'Codigo unico';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.descripcion IS 'Texto descriptivo';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.activo IS 'Estado del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.usuario_creacion IS 'Nombre de usuario de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.fecha_creacion IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_funcionario.fecha_modificacion IS 'Fecha y hora de creacion del registro';
+
+
+ALTER SEQUENCE funcionarios_der.tipo_funcionario_tipo_funcionario_id_seq OWNED BY funcionarios_der.tipo_funcionario.tipo_funcionario_id;
+
+CREATE INDEX tipo_funcionario_codigo_idx
+ ON funcionarios_der.tipo_funcionario
+ ( codigo ASC );
+
+CREATE SEQUENCE funcionarios_der.tipo_discapacidad_tipo_discapacidad_id_seq;
+
+CREATE TABLE funcionarios_der.tipo_discapacidad (
+                tipo_discapacidad_id SMALLINT NOT NULL DEFAULT nextval('funcionarios_der.tipo_discapacidad_tipo_discapacidad_id_seq'),
+                codigo CHAR(2) NOT NULL,
+                descripcion VARCHAR(24) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT tipo_discapacidad_pk PRIMARY KEY (tipo_discapacidad_id)
+);
+COMMENT ON TABLE funcionarios_der.tipo_discapacidad IS 'Tabala paramétrica para tipo de discapacidad.';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.tipo_discapacidad_id IS 'Clave primaria de la tabla.';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.codigo IS 'Codigo unico';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.descripcion IS 'Texto descriptivo';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.activo IS 'Estado del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.usuario_creacion IS 'Nombre de usuario de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.fecha_creacion IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
+COMMENT ON COLUMN funcionarios_der.tipo_discapacidad.fecha_modificacion IS 'Fecha y hora de la ultima modificacion del registro';
+
+
+ALTER SEQUENCE funcionarios_der.tipo_discapacidad_tipo_discapacidad_id_seq OWNED BY funcionarios_der.tipo_discapacidad.tipo_discapacidad_id;
+
+CREATE SEQUENCE funcionarios_der.persona_persona_id_seq;
+
+CREATE TABLE funcionarios_der.persona (
+                persona_id INTEGER NOT NULL DEFAULT nextval('funcionarios_der.persona_persona_id_seq'),
+                tipo_discapacidad_id SMALLINT NOT NULL,
+                documento VARCHAR(20) NOT NULL,
+                nombre VARCHAR(64) NOT NULL,
+                apellido VARCHAR(64) NOT NULL,
+                sexo VARCHAR(12) NOT NULL,
+                fecha_nacimiento DATE NOT NULL,
+                activo BOOLEAN NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT persona_pk PRIMARY KEY (persona_id)
+);
+COMMENT ON TABLE funcionarios_der.persona IS 'Tabla para almacenar datos basico de una persona';
+COMMENT ON COLUMN funcionarios_der.persona.persona_id IS 'Clave primaria de la tabla.';
+COMMENT ON COLUMN funcionarios_der.persona.tipo_discapacidad_id IS 'Clave primaria de la tabla tipo_discapacidad.';
+COMMENT ON COLUMN funcionarios_der.persona.documento IS 'Numero de cedula de identidad';
+COMMENT ON COLUMN funcionarios_der.persona.nombre IS 'Nombres del individuo';
+COMMENT ON COLUMN funcionarios_der.persona.apellido IS 'Apellidos del individuo';
+COMMENT ON COLUMN funcionarios_der.persona.sexo IS 'M para masuculino y F para femenino';
+COMMENT ON COLUMN funcionarios_der.persona.fecha_nacimiento IS 'Natalicio';
+COMMENT ON COLUMN funcionarios_der.persona.activo IS 'Estado del registro';
+COMMENT ON COLUMN funcionarios_der.persona.usuario_creacion IS 'Nombre de usuario de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.persona.fecha_creacion IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.persona.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
+COMMENT ON COLUMN funcionarios_der.persona.fecha_modificacion IS 'Fecha y hora de creacion del registro';
+
+
+ALTER SEQUENCE funcionarios_der.persona_persona_id_seq OWNED BY funcionarios_der.persona.persona_id;
+
+CREATE UNIQUE INDEX persona_documento_idx
+ ON funcionarios_der.persona USING BTREE
+ ( documento ASC );
+
+CREATE SEQUENCE funcionarios_der.nivel_nivel_id_seq;
+
+CREATE TABLE funcionarios_der.nivel (
+                nivel_id SMALLINT NOT NULL DEFAULT nextval('funcionarios_der.nivel_nivel_id_seq'),
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(64) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT nivel_pk PRIMARY KEY (nivel_id)
+);
+COMMENT ON TABLE funcionarios_der.nivel IS 'Tabla que almacena el listado de niveles de la organización del estado Paraguayo';
+COMMENT ON COLUMN funcionarios_der.nivel.nivel_id IS 'Clave primeria';
+COMMENT ON COLUMN funcionarios_der.nivel.codigo IS 'Codigo unico';
+COMMENT ON COLUMN funcionarios_der.nivel.descripcion IS 'Texto descriptivo';
+COMMENT ON COLUMN funcionarios_der.nivel.activo IS 'Estado del registro';
+COMMENT ON COLUMN funcionarios_der.nivel.usuario_creacion IS 'Nombre de usuario de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.nivel.fecha_creacion IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.nivel.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
+COMMENT ON COLUMN funcionarios_der.nivel.fecha_modificacion IS 'Fecha y hora de creacion del registro';
+
+
+ALTER SEQUENCE funcionarios_der.nivel_nivel_id_seq OWNED BY funcionarios_der.nivel.nivel_id;
+
+CREATE UNIQUE INDEX nivel_codigo_idx
+ ON funcionarios_der.nivel USING BTREE
+ ( codigo ASC );
+
+CREATE SEQUENCE funcionarios_der.entidad_entidad_id_seq;
+
+CREATE TABLE funcionarios_der.entidad (
+                entidad_id SMALLINT NOT NULL DEFAULT nextval('funcionarios_der.entidad_entidad_id_seq'),
+                nivel_id SMALLINT NOT NULL,
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(64) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT entidad_pk PRIMARY KEY (entidad_id)
+);
+COMMENT ON TABLE funcionarios_der.entidad IS 'Tabla que almacena el listado de entidades. Relacionado con la tabla NIVEL';
+COMMENT ON COLUMN funcionarios_der.entidad.entidad_id IS 'Clave primeria para la tabla entidad';
+COMMENT ON COLUMN funcionarios_der.entidad.nivel_id IS 'Clave primeria para la tabla nivel';
+COMMENT ON COLUMN funcionarios_der.entidad.codigo IS 'Codigo unico';
+COMMENT ON COLUMN funcionarios_der.entidad.descripcion IS 'Texto descriptivo';
+COMMENT ON COLUMN funcionarios_der.entidad.activo IS 'Estado del registro';
+COMMENT ON COLUMN funcionarios_der.entidad.usuario_creacion IS 'Nombre de usuario de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.entidad.fecha_creacion IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.entidad.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
+COMMENT ON COLUMN funcionarios_der.entidad.fecha_modificacion IS 'Fecha y hora de creacion del registro';
+
+
+ALTER SEQUENCE funcionarios_der.entidad_entidad_id_seq OWNED BY funcionarios_der.entidad.entidad_id;
+
+CREATE UNIQUE INDEX entidad_codigo_idx
+ ON funcionarios_der.entidad USING BTREE
+ ( codigo ASC );
+
+CREATE SEQUENCE funcionarios_der.oee_oee_id_seq;
+
+CREATE TABLE funcionarios_der.oee (
+                oee_id SMALLINT NOT NULL DEFAULT nextval('funcionarios_der.oee_oee_id_seq'),
+                entidad_id SMALLINT NOT NULL,
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(64) NOT NULL,
+                correo VARCHAR(60) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT oee_pk PRIMARY KEY (oee_id)
+);
+COMMENT ON TABLE funcionarios_der.oee IS 'Tabla que almacena el listado de los organismos y entidades del Estado (OEE)';
+COMMENT ON COLUMN funcionarios_der.oee.oee_id IS 'Clave primeria para la tabla oee';
+COMMENT ON COLUMN funcionarios_der.oee.entidad_id IS 'Clave primeria para la tabla entidad';
+COMMENT ON COLUMN funcionarios_der.oee.codigo IS 'Codigo unico';
+COMMENT ON COLUMN funcionarios_der.oee.descripcion IS 'Texto descriptivo';
+COMMENT ON COLUMN funcionarios_der.oee.correo IS 'correo de la institucion';
+COMMENT ON COLUMN funcionarios_der.oee.activo IS 'Estado del registro';
+COMMENT ON COLUMN funcionarios_der.oee.usuario_creacion IS 'Nombre de usuario de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.oee.fecha_creacion IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.oee.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
+COMMENT ON COLUMN funcionarios_der.oee.fecha_modificacion IS 'Fecha y hora de creacion del registro';
+
+
+ALTER SEQUENCE funcionarios_der.oee_oee_id_seq OWNED BY funcionarios_der.oee.oee_id;
+
+CREATE UNIQUE INDEX oee_codigo_idx
+ ON funcionarios_der.oee USING BTREE
+ ( codigo ASC );
+
+CREATE SEQUENCE funcionarios_der.funcionario_funcionario_id_seq;
+
+CREATE TABLE funcionarios_der.funcionario (
+                funcionario_id INTEGER NOT NULL DEFAULT nextval('funcionarios_der.funcionario_funcionario_id_seq'),
+                persona_id INTEGER NOT NULL,
+                oee_id SMALLINT NOT NULL,
+                tipo_funcionario_id SMALLINT NOT NULL,
+                profesion_id INTEGER NOT NULL,
+                activo BOOLEAN NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT funcionario_pk PRIMARY KEY (funcionario_id)
+);
+COMMENT ON TABLE funcionarios_der.funcionario IS 'Tabla para almacenar funcionarios publicos';
+COMMENT ON COLUMN funcionarios_der.funcionario.funcionario_id IS 'Clave primaria de la tabla.';
+COMMENT ON COLUMN funcionarios_der.funcionario.persona_id IS 'Clave primaria de la tabla.';
+COMMENT ON COLUMN funcionarios_der.funcionario.oee_id IS 'Clave primeria para la tabla oee';
+COMMENT ON COLUMN funcionarios_der.funcionario.tipo_funcionario_id IS 'Clave primaria de la tabla.';
+COMMENT ON COLUMN funcionarios_der.funcionario.activo IS 'Estado del registro';
+COMMENT ON COLUMN funcionarios_der.funcionario.usuario_creacion IS 'Nombre de usuario de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.funcionario.fecha_creacion IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN funcionarios_der.funcionario.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
+COMMENT ON COLUMN funcionarios_der.funcionario.fecha_modificacion IS 'Fecha y hora de creacion del registro';
+
+
+ALTER SEQUENCE funcionarios_der.funcionario_funcionario_id_seq OWNED BY funcionarios_der.funcionario.funcionario_id;
+
+CREATE TABLE funcionarios_der.FUNCIONARIO_RUBRO (
+                funcionario_rubro_id BIGINT NOT NULL,
+                funcionario_id INTEGER NOT NULL,
+                rubro_id BIGINT NOT NULL,
+                fecha_acto DATE NOT NULL,
+                CONSTRAINT funcionario_rubro_id PRIMARY KEY (funcionario_rubro_id)
+);
+COMMENT ON TABLE funcionarios_der.FUNCIONARIO_RUBRO IS 'relacion del rubro que pertenece al funcionario';
+COMMENT ON COLUMN funcionarios_der.FUNCIONARIO_RUBRO.funcionario_id IS 'Clave primaria de la tabla.';
+COMMENT ON COLUMN funcionarios_der.FUNCIONARIO_RUBRO.rubro_id IS 'id del rubro';
+COMMENT ON COLUMN funcionarios_der.FUNCIONARIO_RUBRO.fecha_acto IS 'Fecha de Administrativo del funcionario por el cual fue nombrado (Decreto, Resolución), contratado (Fecha de firma de contrato).';
+
+
+CREATE TABLE funcionarios_der.PAGO (
+                pago_id BIGINT NOT NULL,
+                funcionario_rubro_id BIGINT NOT NULL,
+                monto_devengado VARCHAR DEFAULT 0 NOT NULL,
+                mes SMALLINT NOT NULL,
+                CONSTRAINT pago_pk PRIMARY KEY (pago_id)
+);
+COMMENT ON TABLE funcionarios_der.PAGO IS 'registro de pago al funcionario';
+COMMENT ON COLUMN funcionarios_der.PAGO.monto_devengado IS 'monto pagado al funcionado';
+COMMENT ON COLUMN funcionarios_der.PAGO.mes IS 'mes del pago';
+
+
+ALTER TABLE funcionarios_der.funcionario ADD CONSTRAINT profesion_funcionario_fk
+FOREIGN KEY (profesion_id)
+REFERENCES funcionarios_der.PROFESION (profesion_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.RUBRO ADD CONSTRAINT funciones_rubro_fk
+FOREIGN KEY (funcion_id)
+REFERENCES funcionarios_der.FUNCION (funcion_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE ADD CONSTRAINT fuente_financiamiento_presupuesto_fk
+FOREIGN KEY (fuente_financiamiento_id)
+REFERENCES funcionarios_der.FUENTE_FINANCIAMIENTO (fuente_financiamiento_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.RUBRO ADD CONSTRAINT cargo_rubro_fk
+FOREIGN KEY (cargo_id)
+REFERENCES funcionarios_der.CARGO (cargo_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.RUBRO ADD CONSTRAINT categoria_rubro_fk
+FOREIGN KEY (categoria_id)
+REFERENCES funcionarios_der.CATEGORIA (categoria_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.RUBRO ADD CONSTRAINT linea_rubro_fk
+FOREIGN KEY (linea_id)
+REFERENCES funcionarios_der.LINEA (linea_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE ADD CONSTRAINT objeto_gasto_presupuesto_fk
+FOREIGN KEY (objeto_gasto_id)
+REFERENCES funcionarios_der.OBJETO_GASTO (objeto_gasto_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.RUBRO_OBJETO_GASTO_DETALLE ADD CONSTRAINT rubro_presupuestado_fk
+FOREIGN KEY (rubro_id)
+REFERENCES funcionarios_der.RUBRO (rubro_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.FUNCIONARIO_RUBRO ADD CONSTRAINT rubro_funcionario_rubro_fk
+FOREIGN KEY (rubro_id)
+REFERENCES funcionarios_der.RUBRO (rubro_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.funcionario ADD CONSTRAINT tipo_funcionario_funcionario_fk
+FOREIGN KEY (tipo_funcionario_id)
+REFERENCES funcionarios_der.tipo_funcionario (tipo_funcionario_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.persona ADD CONSTRAINT tipo_discapacidad_persona_fk
+FOREIGN KEY (tipo_discapacidad_id)
+REFERENCES funcionarios_der.tipo_discapacidad (tipo_discapacidad_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.funcionario ADD CONSTRAINT persona_funcionario_fk
+FOREIGN KEY (persona_id)
+REFERENCES funcionarios_der.persona (persona_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.entidad ADD CONSTRAINT nivel_entidad_fk
+FOREIGN KEY (nivel_id)
+REFERENCES funcionarios_der.nivel (nivel_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.oee ADD CONSTRAINT entidad_oee_fk
+FOREIGN KEY (entidad_id)
+REFERENCES funcionarios_der.entidad (entidad_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.funcionario ADD CONSTRAINT oee_funcionario_fk
+FOREIGN KEY (oee_id)
+REFERENCES funcionarios_der.oee (oee_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.FUNCIONARIO_RUBRO ADD CONSTRAINT funcionario_funcionario_rubro_fk
+FOREIGN KEY (funcionario_id)
+REFERENCES funcionarios_der.funcionario (funcionario_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE funcionarios_der.PAGO ADD CONSTRAINT funcionario_rubro_pago_fk
+FOREIGN KEY (funcionario_rubro_id)
+REFERENCES funcionarios_der.FUNCIONARIO_RUBRO (funcionario_rubro_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
