@@ -4,8 +4,8 @@
  <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
  <project-data-sources>
   <data-source id="DS0">
-   <property key="Logical" value="BIG-DATA_Laboratorio" />
    <property key="Connection Type" value="PostgreSQL" />
+   <property key="Logical" value="PlayPen Database" />
    <property key="JDBC URL" value="jdbc:postgresql://localhost:5432/laboratorio" />
    <property key="UID" value="postgres" />
    <property key="PWD" value="postgres" />
@@ -536,19 +536,19 @@ Corresponde a los fondos establecidos (monto bruto) para el/los objeto/s del gas
     </index>
    </folder>
   </table>
-  <table id="TAB148" populated="true" UUID="45ac2e4f-ba2a-402e-bda7-19fcfd759f83" name="funcionario_rubro" objectType="TABLE" physicalName="funcionario_rubro" >
+  <table id="TAB148" populated="true" UUID="45ac2e4f-ba2a-402e-bda7-19fcfd759f83" name="FUNCIONARIO_RUBRO" objectType="TABLE" physicalName="FUNCIONARIO_RUBRO" >
    <remarks>relacion del rubro que pertenece al funcionario</remarks>
    <folder id="FOLTAB1481" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL149" populated="true" UUID="10e1c746-476b-4116-8675-f9e910ed453e" autoIncrement="false" autoIncrementSequenceName="funcionario_rubro_funcionario_rubro_id_seq" defaultValue="" name="funcionario_rubro_id" nullable="0" physicalName="funcionario_rubro_id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" source-column-ref="COL98" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL149" populated="true" UUID="10e1c746-476b-4116-8675-f9e910ed453e" autoIncrement="false" autoIncrementSequenceName="FUNCIONARIO_RUBRO_funcionario_rubro_id_seq" defaultValue="" name="funcionario_rubro_id" nullable="0" physicalName="funcionario_rubro_id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" source-column-ref="COL98" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
-    <column id="COL150" populated="true" UUID="1adaa2b3-6c8e-4860-b62f-40389bce358c" autoIncrement="false" autoIncrementSequenceName="funcionario_rubro_funcionario_id_seq" defaultValue="" name="funcionario_id" nullable="0" physicalName="funcionario_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL150" populated="true" UUID="1adaa2b3-6c8e-4860-b62f-40389bce358c" autoIncrement="false" autoIncrementSequenceName="FUNCIONARIO_RUBRO_funcionario_id_seq" defaultValue="" name="funcionario_id" nullable="0" physicalName="funcionario_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks>Clave primaria de la tabla.</remarks>
     </column>
-    <column id="COL151" populated="true" UUID="59ffcee5-edbc-4aed-989c-30a96e2a4285" autoIncrement="false" autoIncrementSequenceName="funcionario_rubro_rubro_id_seq" defaultValue="" name="rubro_id" nullable="0" physicalName="rubro_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL151" populated="true" UUID="59ffcee5-edbc-4aed-989c-30a96e2a4285" autoIncrement="false" autoIncrementSequenceName="FUNCIONARIO_RUBRO_rubro_id_seq" defaultValue="" name="rubro_id" nullable="0" physicalName="rubro_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks>id del rubro</remarks>
     </column>
-    <column id="COL152" populated="true" UUID="22c5be6e-db7a-447d-b35b-b789fb7d780b" autoIncrement="false" autoIncrementSequenceName="funcionario_rubro_fecha_acto_seq" defaultValue="" name="fecha_acto" nullable="0" physicalName="fecha_acto" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+    <column id="COL152" populated="true" UUID="22c5be6e-db7a-447d-b35b-b789fb7d780b" autoIncrement="false" autoIncrementSequenceName="FUNCIONARIO_RUBRO_fecha_acto_seq" defaultValue="" name="fecha_acto" nullable="0" physicalName="fecha_acto" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
      <remarks>Fecha de Administrativo del funcionario por el cual fue nombrado (Decreto, Resolución), contratado (Fecha de firma de contrato).</remarks>
     </column>
     </folder>
@@ -595,7 +595,9 @@ Corresponde a los fondos establecidos (monto bruto) para el/los objeto/s del gas
      <remarks></remarks>
     </column>
     <column id="COL164" populated="true" UUID="9b76a258-abd7-4be6-a232-062d00d661a1" autoIncrement="false" autoIncrementSequenceName="PROFESION_descripcion_seq" defaultValue="" name="descripcion" nullable="1" physicalName="descripcion" precision="220" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>descripcion/nombre de la profesion</remarks>
+     <remarks>descripcion/nombre de la profesion
+
+Corresponde a la profesión del servidor público.</remarks>
     </column>
     </folder>
     <folder id="FOLTAB1623" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
@@ -630,42 +632,42 @@ Corresponde a los fondos establecidos (monto bruto) para el/los objeto/s del gas
    <relationship id="REL179" populated="true" UUID="bccb4d55-5c53-4e0f-867b-1145e3b40b45" deferrability="7" deleteRule="3" fk-table-ref="TAB71" fkCardinality="7" identifying="false" name="tipo_funcionario_funcionario_fk" physicalName="tipo_funcionario_funcionario_fk" pk-table-ref="TAB84" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP180" populated="true" UUID="a06bf876-c15c-484a-9721-5c27ca16ab67" fk-column-ref="COL75" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL85" />
    </relationship>
-   <relationship id="REL181" populated="true" UUID="d7d148db-e7d5-437b-9112-0fe3ff4026a2" deferrability="7" deleteRule="3" fk-table-ref="TAB135" fkCardinality="7" identifying="false" name="RUBRO_PRESUPUESTADO_fk" physicalName="rubro_presupuestado_fk" pk-table-ref="TAB97" pkCardinality="2" updateRule="3" >
+   <relationship id="REL181" populated="true" UUID="d7d148db-e7d5-437b-9112-0fe3ff4026a2" deferrability="7" deleteRule="3" fk-table-ref="TAB135" fkCardinality="7" identifying="false" name="RUBRO_PRESUPUESTADO_fk" physicalName="RUBRO_PRESUPUESTADO_fk" pk-table-ref="TAB97" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP182" populated="true" UUID="5888e061-f953-4abf-b317-aa4b3ab17b15" fk-column-ref="COL137" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL98" />
    </relationship>
-   <relationship id="REL183" populated="true" UUID="0f7e7317-e4ab-46c8-bd10-6457c8c09241" deferrability="7" deleteRule="3" fk-table-ref="TAB148" fkCardinality="7" identifying="false" name="RUBRO_funcionario_rubro_fk" physicalName="rubro_funcionario_rubro_fk" pk-table-ref="TAB97" pkCardinality="2" updateRule="3" >
+   <relationship id="REL183" populated="true" UUID="0f7e7317-e4ab-46c8-bd10-6457c8c09241" deferrability="7" deleteRule="3" fk-table-ref="TAB148" fkCardinality="7" identifying="false" name="RUBRO_funcionario_rubro_fk" physicalName="RUBRO_funcionario_rubro_fk" pk-table-ref="TAB97" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP184" populated="true" UUID="10825ae3-ce2f-4a8f-94ed-c4bc065c1ec5" fk-column-ref="COL151" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL98" />
    </relationship>
-   <relationship id="REL185" populated="true" UUID="17a3efb5-5ccc-4c65-b847-032e6a6a96a1" deferrability="7" deleteRule="3" fk-table-ref="TAB135" fkCardinality="7" identifying="false" name="OBJETO_GASTO_PRESUPUESTO_fk" physicalName="objeto_gasto_presupuesto_fk" pk-table-ref="TAB105" pkCardinality="2" updateRule="3" >
+   <relationship id="REL185" populated="true" UUID="17a3efb5-5ccc-4c65-b847-032e6a6a96a1" deferrability="7" deleteRule="3" fk-table-ref="TAB135" fkCardinality="7" identifying="false" name="OBJETO_GASTO_PRESUPUESTO_fk" physicalName="OBJETO_GASTO_PRESUPUESTO_fk" pk-table-ref="TAB105" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP186" populated="true" UUID="cdba99e2-ebf5-49ba-952d-82086d9b3fe1" fk-column-ref="COL138" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL106" />
    </relationship>
-   <relationship id="REL187" populated="true" UUID="ca03439c-d10b-4124-a4f0-f9f268a36e3a" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="LINEA_RUBRO_fk" physicalName="linea_rubro_fk" pk-table-ref="TAB111" pkCardinality="2" updateRule="3" >
+   <relationship id="REL187" populated="true" UUID="ca03439c-d10b-4124-a4f0-f9f268a36e3a" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="LINEA_RUBRO_fk" physicalName="LINEA_RUBRO_fk" pk-table-ref="TAB111" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP188" populated="true" UUID="4b7da6cd-5f95-47fa-a73f-7bc445a53fe9" fk-column-ref="COL100" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL112" />
    </relationship>
-   <relationship id="REL189" populated="true" UUID="5535b175-c244-4fcb-9b7a-01212f366e21" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="CATEGORIA_RUBRO_fk" physicalName="categoria_rubro_fk" pk-table-ref="TAB116" pkCardinality="2" updateRule="3" >
+   <relationship id="REL189" populated="true" UUID="5535b175-c244-4fcb-9b7a-01212f366e21" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="CATEGORIA_RUBRO_fk" physicalName="CATEGORIA_RUBRO_fk" pk-table-ref="TAB116" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP190" populated="true" UUID="2d7a0d53-0b7c-491a-9fe3-c477fbba058e" fk-column-ref="COL99" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL117" />
    </relationship>
-   <relationship id="REL191" populated="true" UUID="3a6284db-2db0-42e9-a92f-ed8eb3fc133f" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="CARGO_RUBRO_fk" physicalName="cargo_rubro_fk" pk-table-ref="TAB125" pkCardinality="2" updateRule="3" >
+   <relationship id="REL191" populated="true" UUID="3a6284db-2db0-42e9-a92f-ed8eb3fc133f" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="CARGO_RUBRO_fk" physicalName="CARGO_RUBRO_fk" pk-table-ref="TAB125" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP192" populated="true" UUID="caadffa2-ba22-4c12-ad9a-6294ba657dfc" fk-column-ref="COL101" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL126" />
    </relationship>
-   <relationship id="REL193" populated="true" UUID="a15f2c6a-1276-43a2-8780-10a7096e3ea2" deferrability="7" deleteRule="3" fk-table-ref="TAB135" fkCardinality="7" identifying="false" name="FUENTE_FINANCIAMIENTO_PRESUPUESTO_fk" physicalName="fuente_financiamiento_presupuesto_fk" pk-table-ref="TAB130" pkCardinality="2" updateRule="3" >
+   <relationship id="REL193" populated="true" UUID="a15f2c6a-1276-43a2-8780-10a7096e3ea2" deferrability="7" deleteRule="3" fk-table-ref="TAB135" fkCardinality="7" identifying="false" name="FUENTE_FINANCIAMIENTO_PRESUPUESTO_fk" physicalName="FUENTE_FINANCIAMIENTO_PRESUPUESTO_fk" pk-table-ref="TAB130" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP194" populated="true" UUID="1ed6cc7e-8df0-4b1b-abef-a49b6af31650" fk-column-ref="COL139" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL131" />
    </relationship>
-   <relationship id="REL195" populated="true" UUID="81af8789-8baa-4d0a-8bb1-eb7011f9ad24" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="FUNCIONES_RUBRO_fk" physicalName="funciones_rubro_fk" pk-table-ref="TAB143" pkCardinality="2" updateRule="3" >
+   <relationship id="REL195" populated="true" UUID="81af8789-8baa-4d0a-8bb1-eb7011f9ad24" deferrability="7" deleteRule="3" fk-table-ref="TAB97" fkCardinality="7" identifying="false" name="FUNCIONES_RUBRO_fk" physicalName="FUNCIONES_RUBRO_fk" pk-table-ref="TAB143" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP196" populated="true" UUID="65410861-f784-4fde-810a-f070c21174da" fk-column-ref="COL102" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL144" />
    </relationship>
-   <relationship id="REL197" populated="true" UUID="09a92612-01a8-4dbd-b451-2183aa1b0c7c" deferrability="7" deleteRule="3" fk-table-ref="TAB155" fkCardinality="7" identifying="false" name="funcionario_rubro_PAGO_fk" physicalName="funcionario_rubro_pago_fk" pk-table-ref="TAB148" pkCardinality="2" updateRule="3" >
+   <relationship id="REL197" populated="true" UUID="09a92612-01a8-4dbd-b451-2183aa1b0c7c" deferrability="7" deleteRule="3" fk-table-ref="TAB155" fkCardinality="7" identifying="false" name="funcionario_rubro_PAGO_fk" physicalName="funcionario_rubro_PAGO_fk" pk-table-ref="TAB148" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP198" populated="true" UUID="0e3eda8d-8a82-4284-904d-d3762e15c354" fk-column-ref="COL157" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL149" />
    </relationship>
-   <relationship id="REL199" populated="true" UUID="27a0bfe5-f517-454b-a20d-11a9a6d88812" deferrability="7" deleteRule="3" fk-table-ref="TAB71" fkCardinality="7" identifying="false" name="PROFESION_funcionario_fk" physicalName="profesion_funcionario_fk" pk-table-ref="TAB162" pkCardinality="2" updateRule="3" >
+   <relationship id="REL199" populated="true" UUID="27a0bfe5-f517-454b-a20d-11a9a6d88812" deferrability="7" deleteRule="3" fk-table-ref="TAB71" fkCardinality="7" identifying="false" name="PROFESION_funcionario_fk" physicalName="PROFESION_funcionario_fk" pk-table-ref="TAB162" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP200" populated="true" UUID="36199726-e55b-4ec2-89e4-6aaa2bb87424" fk-column-ref="COL76" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL163" />
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="false" target-schema="der_v1"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="true" target-schema="der_v1"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="1.0" viewportX="335" viewportY="190" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="1.0" viewportX="284" viewportY="243" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="203" y="61" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB14" x="654" y="230" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB28" x="1105" y="346" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
@@ -673,17 +675,17 @@ Corresponde a los fondos establecidos (monto bruto) para el/los objeto/s del gas
   <table-pane table-ref="TAB60" x="187" y="580" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB71" x="1195" y="699" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB84" x="1606" y="509" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB97" x="1231" y="1211" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB97" x="1225" y="1211" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB105" x="368" y="1159" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB111" x="1253" y="1421" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB111" x="1247" y="1419" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB116" x="917" y="1412" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB121" x="2503" y="2069" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB125" x="1504" y="1419" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB130" x="317" y="1276" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB135" x="752" y="1213" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB143" x="1692" y="1227" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB148" x="1207" y="1000" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB155" x="823" y="987" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB148" x="1201" y="1000" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB155" x="823" y="987" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB162" x="1583" y="868" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-link relationship-ref="REL169" pkConnection="0.8285714285714286" fkConnection="0.1518324607329843" rLineColor="0x000000" pkLabelText="ENTIDAD" fkLabelText="OEE" orientation="33"/>
   <table-link relationship-ref="REL167" pkConnection="0.8226950354609929" fkConnection="0.2" rLineColor="0x000000" pkLabelText="NIVEL" fkLabelText="ENTIDAD" orientation="33"/>
@@ -696,8 +698,8 @@ Corresponde a los fondos establecidos (monto bruto) para el/los objeto/s del gas
   <table-link relationship-ref="REL191" pkConnection="0.2832618025751073" fkConnection="0.7757352941176471" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL185" pkConnection="0.6835443037974683" fkConnection="0.24324324324324326" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL193" pkConnection="0.25396825396825395" fkConnection="0.7207207207207207" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL181" pkConnection="0.5052631578947369" fkConnection="0.4774774774774775" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL195" pkConnection="0.5396825396825397" fkConnection="0.47368421052631576" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL181" pkConnection="0.4774774774774775" fkConnection="0.4774774774774775" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL195" pkConnection="0.5714285714285714" fkConnection="0.47368421052631576" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
   <table-link relationship-ref="REL183" pkConnection="0.48148148148148145" fkConnection="0.5081081081081081" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL177" pkConnection="0.488135593220339" fkConnection="0.4826254826254826" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
   <table-link relationship-ref="REL197" pkConnection="0.43037974683544306" fkConnection="0.5569620253164557" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
