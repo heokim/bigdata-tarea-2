@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>ETL_nivel</name>
+    <name>ETL_oee</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,9 +427,9 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2023/02/23 16:43:38.039</created_date>
+    <created_date>2023/03/29 17:57:01.143</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2023/02/23 16:43:38.039</modified_date>
+    <modified_date>2023/03/29 17:57:01.143</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -489,17 +489,57 @@
   <order>
     <hop>
       <from>Extraer CSV</from>
-      <to>Obtener nivel</to>
+      <to>Obtener oee</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Obtener nivel</from>
-      <to>Ordenar nivel por codigo nivel</to>
+      <from>Ordenar nivel por codigo oee</from>
+      <to>Eliminar duplicados entidad</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar nivel por codigo nivel</from>
-      <to>Eliminar duplicados nivel</to>
+      <from>Consulta nivel en BD</from>
+      <to>Checksum destino</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Checksum Origen</from>
+      <to>Verificar existencia en BD</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Checksum destino</from>
+      <to>Verificar existencia en BD</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Eliminar duplicados entidad</from>
+      <to>Checksum Origen</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Cruzar entidad/nivel insert</from>
+      <to>Insertar o Modificar</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Obtener entidad_id en BD </from>
+      <to>Checksum entidad id bd</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Checksum entidad id origen</from>
+      <to>Cruzar entidad/nivel insert</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Checksum entidad id bd</from>
+      <to>Cruzar entidad/nivel insert</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Verificar existencia en BD</from>
+      <to>Checksum entidad id origen</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -508,18 +548,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Eliminar duplicados nivel</from>
-      <to>Verificar existencia en BD</to>
+      <from>Agregar columnas necesarias para modificar</from>
+      <to>Agregar fecha actual 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Consulta nivel en BD</from>
-      <to>Verificar existencia en BD</to>
+      <from>Agregar fecha actual</from>
+      <to>Insertar</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Verificar existencia en BD</from>
-      <to>Insertar o Modificar</to>
+      <from>Agregar fecha actual 2</from>
+      <to>Actualizar</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -533,29 +573,19 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Agregar fecha actual</from>
-      <to>Insertar</to>
+      <from>Obtener oee</from>
+      <to>tratar_nulos</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Agregar columnas necesarias para modificar</from>
-      <to>Agregar fecha actual 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Get file names</from>
-      <to>Extraer CSV</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Agregar fecha actual 2</from>
-      <to>Actualizar</to>
+      <from>tratar_nulos</from>
+      <to>Ordenar nivel por codigo oee</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Actualizar</name>
-    <type>Update</type>
+    <name>Checksum Origen</name>
+    <type>CheckSum</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -564,87 +594,58 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>BigData-Lab1</connection>
-    <skip_lookup>N</skip_lookup>
-    <commit>100</commit>
-    <use_batch>N</use_batch>
-    <error_ignored>N</error_ignored>
-    <ignore_flag_field/>
-    <lookup>
-      <schema>public</schema>
-      <table>nivel</table>
-      <key>
-        <name>nivel_id</name>
-        <field>nivel_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
+    <checksumtype>MD5</checksumtype>
+    <resultfieldName>codigo_control_origen</resultfieldName>
+    <resultType>hexadecimal</resultType>
+    <compatibilityMode>N</compatibilityMode>
+    <oldChecksumBehaviour>N</oldChecksumBehaviour>
+    <evaluationMethod>BYTES</evaluationMethod>
+    <fieldSeparatorString/>
+    <fields>
+      <field>
+        <name>codigo_oee</name>
+      </field>
+      <field>
+        <name>descripcion_oee</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Checksum destino</name>
+    <type>CheckSum</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <checksumtype>MD5</checksumtype>
+    <resultfieldName>codigo_control_destino</resultfieldName>
+    <resultType>hexadecimal</resultType>
+    <compatibilityMode>N</compatibilityMode>
+    <oldChecksumBehaviour>N</oldChecksumBehaviour>
+    <evaluationMethod>BYTES</evaluationMethod>
+    <fields>
+      <field>
         <name>codigo</name>
-        <rename>codigo_nivel</rename>
-      </value>
-      <value>
+      </field>
+      <field>
         <name>descripcion</name>
-        <rename>descripcion_nivel</rename>
-      </value>
-      <value>
-        <name>usuario_modificacion</name>
-        <rename>usuario_modificacion</rename>
-      </value>
-      <value>
-        <name>fecha_modificacion</name>
-        <rename>fecha_modificacion</rename>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>144</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar columnas necesarias para modificar</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>usuario_modificacion</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>grupo_01</nullif>
-        <length>16</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>fecha_modificacion</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
       </field>
     </fields>
     <attributes/>
@@ -656,91 +657,32 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>288</yloc>
+      <xloc>832</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Agregar fecha actual 2</name>
-    <type>Formula</type>
+    <name>Checksum entidad id bd</name>
+    <type>CheckSum</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <formula>
-      <field_name>fechaActual</field_name>
-      <formula_string>NOW()</formula_string>
-      <value_type>Timestamp</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field>fecha_modificacion</replace_field>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>272</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar columnas necesarias para insertar</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+    <checksumtype>MD5</checksumtype>
+    <resultfieldName>entidad_recuperado</resultfieldName>
+    <resultType>hexadecimal</resultType>
+    <compatibilityMode>N</compatibilityMode>
+    <oldChecksumBehaviour>N</oldChecksumBehaviour>
+    <evaluationMethod>BYTES</evaluationMethod>
+    <fieldSeparatorString/>
     <fields>
       <field>
-        <name>activo</name>
-        <type>Boolean</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>true</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>usuario_creacion</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>grupo_01</nullif>
-        <length>16</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>fecha_creacion</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
+        <name>codigo_entidad_sql</name>
       </field>
     </fields>
     <attributes/>
@@ -752,14 +694,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
-      <yloc>288</yloc>
+      <xloc>656</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Agregar fecha actual</name>
-    <type>Formula</type>
+    <name>Checksum entidad id origen</name>
+    <type>CheckSum</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -768,14 +710,17 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <formula>
-      <field_name>fechaActual</field_name>
-      <formula_string>NOW()</formula_string>
-      <value_type>Timestamp</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field>fecha_creacion</replace_field>
-    </formula>
+    <checksumtype>MD5</checksumtype>
+    <resultfieldName>entidad_insertar</resultfieldName>
+    <resultType>hexadecimal</resultType>
+    <compatibilityMode>N</compatibilityMode>
+    <oldChecksumBehaviour>N</oldChecksumBehaviour>
+    <evaluationMethod>BYTES</evaluationMethod>
+    <fields>
+      <field>
+        <name>codigo_entidad</name>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -785,8 +730,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1024</xloc>
-      <yloc>288</yloc>
+      <xloc>832</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -802,7 +747,7 @@
       <schema_name/>
     </partitioning>
     <connection>BigData-Lab1</connection>
-    <sql>SELECT nivel_id, codigo, descripcion FROM nivel </sql>
+    <sql>SELECT oee_id, codigo, descripcion FROM oee </sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -813,11 +758,11 @@
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>nivel_id</name>
+        <name>oee_id</name>
         <length>4</length>
         <precision>0</precision>
-        <origin>Consulta Nivel</origin>
-        <comments>nivel_id</comments>
+        <origin>Consulta nivel en BD</origin>
+        <comments>oee_id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -839,7 +784,7 @@
         <name>codigo</name>
         <length>4</length>
         <precision>0</precision>
-        <origin>Consulta Nivel</origin>
+        <origin>Consulta nivel en BD</origin>
         <comments>codigo</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -862,7 +807,7 @@
         <name>descripcion</name>
         <length>64</length>
         <precision>-1</precision>
-        <origin>Consulta Nivel</origin>
+        <origin>Consulta nivel en BD</origin>
         <comments>descripcion</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -889,13 +834,55 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>80</yloc>
+      <xloc>832</xloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Eliminar duplicados nivel</name>
+    <name>Cruzar entidad/nivel insert</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Checksum entidad id bd</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>entidad_insertar</name>
+        <field>entidad_recuperado</field>
+      </key>
+      <value>
+        <name>entidad_id_sql</name>
+        <rename>entidad_id_sql</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Eliminar duplicados entidad</name>
     <type>Unique</type>
     <description/>
     <distribute>Y</distribute>
@@ -911,11 +898,19 @@
     <error_description/>
     <fields>
       <field>
-        <name>codigo_nivel</name>
+        <name>codigo_oee</name>
         <case_insensitive>N</case_insensitive>
       </field>
       <field>
-        <name>descripcion_nivel</name>
+        <name>descripcion_oee</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>codigo_entidad</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>correo</name>
         <case_insensitive>N</case_insensitive>
       </field>
     </fields>
@@ -928,8 +923,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>192</yloc>
+      <xloc>560</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1354,172 +1349,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>128</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Get file names</name>
-    <type>GetFileNames</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filter>
-      <filterfiletype>all_files</filterfiletype>
-    </filter>
-    <doNotFailIfNoFile>N</doNotFailIfNoFile>
-    <rownum>N</rownum>
-    <isaddresult>Y</isaddresult>
-    <filefield>N</filefield>
-    <rownum_field/>
-    <filename_Field/>
-    <wildcard_Field/>
-    <exclude_wildcard_Field/>
-    <dynamic_include_subfolders>N</dynamic_include_subfolders>
-    <limit>0</limit>
-    <file>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_1.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_2.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_3.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_4.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_5.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_6.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_7.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_8.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_9.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_10.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_11.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_12.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
       <xloc>32</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insertar</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>BigData-Lab1</connection>
-    <schema>public</schema>
-    <table>nivel</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>codigo</column_name>
-        <stream_name>codigo_nivel</stream_name>
-      </field>
-      <field>
-        <column_name>descripcion</column_name>
-        <stream_name>descripcion_nivel</stream_name>
-      </field>
-      <field>
-        <column_name>activo</column_name>
-        <stream_name>activo</stream_name>
-      </field>
-      <field>
-        <column_name>usuario_creacion</column_name>
-        <stream_name>usuario_creacion</stream_name>
-      </field>
-      <field>
-        <column_name>fecha_creacion</column_name>
-        <stream_name>fecha_creacion</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1136</xloc>
-      <yloc>288</yloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1539,7 +1370,7 @@
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue>nivel_id</leftvalue>
+        <leftvalue>oee_id</leftvalue>
         <function>IS NULL</function>
         <rightvalue/>
       </condition>
@@ -1553,13 +1384,94 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>288</yloc>
+      <xloc>976</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Obtener nivel</name>
+    <name>Obtener entidad_id en BD </name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>BigData-Lab1</connection>
+    <sql>SELECT entidad_id as entidad_id_sql, codigo as codigo_entidad_sql FROM entidad</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>entidad_id_sql</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>Obtener nivel_id en BD </origin>
+        <comments>entidad_id_sql</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>codigo_entidad_sql</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>Obtener nivel_id en BD </origin>
+        <comments>codigo_entidad_sql</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Obtener oee</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1571,11 +1483,20 @@
     </partitioning>
     <fields>
       <field>
-        <name>nivel</name>
-        <rename>codigo_nivel</rename>
+        <name>oee</name>
+        <rename>codigo_oee</rename>
       </field>
       <field>
-        <name>descripcion_nivel</name>
+        <name>descripcion_oee</name>
+        <rename/>
+      </field>
+      <field>
+        <name>entidad</name>
+        <rename>codigo_entidad</rename>
+      </field>
+      <field>
+        <name>correo</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1588,13 +1509,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>192</yloc>
+      <xloc>128</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar nivel por codigo nivel</name>
+    <name>Ordenar nivel por codigo oee</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1613,7 +1534,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>codigo_nivel</name>
+        <name>codigo_oee</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1621,7 +1542,23 @@
         <presorted>N</presorted>
       </field>
       <field>
-        <name>descripcion_nivel</name>
+        <name>descripcion_oee</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>codigo_entidad</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>correo</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1638,8 +1575,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>192</yloc>
+      <xloc>384</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1647,26 +1584,26 @@
     <name>Verificar existencia en BD</name>
     <type>StreamLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>Consulta nivel en BD</from>
+    <from>Checksum destino</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>
       <key>
-        <name>codigo_nivel</name>
-        <field>codigo</field>
+        <name>codigo_control_origen</name>
+        <field>codigo_control_destino</field>
       </key>
       <value>
-        <name>nivel_id</name>
-        <rename>nivel_id</rename>
+        <name>oee_id</name>
+        <rename>oee_id</rename>
         <default/>
         <type>Integer</type>
       </value>
@@ -1680,8 +1617,361 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>192</yloc>
+      <xloc>832</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Actualizar</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>BigData-Lab1</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>public</schema>
+      <table>oee</table>
+      <key>
+        <name>oee_id</name>
+        <field>oee_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>codigo</name>
+        <rename>codigo_oee</rename>
+      </value>
+      <value>
+        <name>descripcion</name>
+        <rename>descripcion_oee</rename>
+      </value>
+      <value>
+        <name>usuario_modificacion</name>
+        <rename>usuario_modificacion</rename>
+      </value>
+      <value>
+        <name>fecha_modificacion</name>
+        <rename>fecha_modificacion</rename>
+      </value>
+      <value>
+        <name>correo</name>
+        <rename>correo</rename>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Agregar columnas necesarias para insertar</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>activo</name>
+        <type>Boolean</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>true</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>usuario_creacion</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>grupo_01</nullif>
+        <length>16</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>fecha_creacion</name>
+        <type>Timestamp</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1168</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Agregar columnas necesarias para modificar</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>usuario_modificacion</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>grupo_01</nullif>
+        <length>16</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>fecha_modificacion</name>
+        <type>Timestamp</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Agregar fecha actual</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>fechaActual</field_name>
+      <formula_string>NOW()</formula_string>
+      <value_type>Timestamp</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field>fecha_creacion</replace_field>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1344</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Agregar fecha actual 2</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>fechaActual</field_name>
+      <formula_string>NOW()</formula_string>
+      <value_type>Timestamp</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field>fecha_modificacion</replace_field>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1184</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertar</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>BigData-Lab1</connection>
+    <schema>public</schema>
+    <table>oee</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>entidad_id</column_name>
+        <stream_name>entidad_id_sql</stream_name>
+      </field>
+      <field>
+        <column_name>codigo</column_name>
+        <stream_name>codigo_oee</stream_name>
+      </field>
+      <field>
+        <column_name>descripcion</column_name>
+        <stream_name>descripcion_oee</stream_name>
+      </field>
+      <field>
+        <column_name>activo</column_name>
+        <stream_name>activo</stream_name>
+      </field>
+      <field>
+        <column_name>usuario_creacion</column_name>
+        <stream_name>usuario_creacion</stream_name>
+      </field>
+      <field>
+        <column_name>fecha_creacion</column_name>
+        <stream_name>fecha_creacion</stream_name>
+      </field>
+      <field>
+        <column_name>correo</column_name>
+        <stream_name>correo</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1456</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>tratar_nulos</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>correo</name>
+        <value>No</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

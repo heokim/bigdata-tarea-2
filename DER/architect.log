@@ -5710,3 +5710,597 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE
 1067234 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :156
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+616  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+688  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+689  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+740  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22651 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+115025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE TABLE public.FUNCIONES (
+                id BIGINT NOT NULL,
+                descripcion VARCHAR NOT NULL,
+                CONSTRAINT funciones_pk PRIMARY KEY (id)
+)
+115025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.FUNCIONES.descripcion IS 'descripcion de la funcion que cumple el funcionario'
+115025 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.FUENTE_FINANCIAMIENTO (
+                id SMALLINT NOT NULL,
+                descripcion SMALLINT,
+                CONSTRAINT fuente_financiamiento_pk PRIMARY KEY (id)
+)
+115026 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.FUENTE_FINANCIAMIENTO.descripcion IS 'codigo de la linea presupuestaria {10, 20, 30}'
+115026 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.CARGO (
+                id INTEGER NOT NULL,
+                descripcion VARCHAR(180) NOT NULL,
+                CONSTRAINT cargo_pk PRIMARY KEY (id)
+)
+115026 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.dummy (
+                id SMALLINT NOT NULL,
+                CONSTRAINT dummy_pk PRIMARY KEY (id)
+)
+115027 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.CATEGORIA (
+                id BIGINT NOT NULL,
+                descripcion VARCHAR(10) NOT NULL,
+                CONSTRAINT categoria_pk PRIMARY KEY (id)
+)
+115027 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.CATEGORIA.descripcion IS 'codigo de la categoria del rubro'
+115027 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.LINEA (
+                id BIGINT NOT NULL,
+                descripcion VARCHAR(16),
+                CONSTRAINT linea_pk PRIMARY KEY (id)
+)
+115027 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.LINEA.id IS 'id de la linea de presupuesto'
+115027 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.LINEA.descripcion IS 'codigo de la linea presupuestaria'
+115028 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.OBJETO_GASTO (
+                id INTEGER NOT NULL,
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(225),
+                CONSTRAINT objeto_gasto_pk PRIMARY KEY (id)
+)
+115028 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.OBJETO_GASTO IS 'tabla donde se registran los objetos de gastos. esto va relacionado al rubro'
+115028 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.OBJETO_GASTO.id IS 'id del objeto de gasto'
+115028 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.OBJETO_GASTO.descripcion IS 'descripcion del objeto de gasto. (concepto)'
+115028 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.RUBRO (
+                id BIGINT NOT NULL,
+                categoria_id BIGINT NOT NULL,
+                linea_id BIGINT NOT NULL,
+                cargo_id INTEGER NOT NULL,
+                funcion_id BIGINT NOT NULL,
+                CONSTRAINT rubro_pk PRIMARY KEY (id)
+)
+115029 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.RUBRO IS 'tabla de rubros. es a lo que se hace el presupuesto'
+115029 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO.id IS 'id del rubro'
+115029 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO.linea_id IS 'id de la linea de presupuesto'
+115029 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO.funcion_id IS 'funcion que se requiera en el rubro'
+115029 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.RUBRO_OBJETO_GASTO_DETALLE (
+                id BIGINT NOT NULL,
+                rubro_id BIGINT NOT NULL,
+                objeto_gasto_id INTEGER NOT NULL,
+                fuente_financiamiento_id SMALLINT NOT NULL,
+                monto_presupuesto BIGINT NOT NULL,
+                CONSTRAINT rubro_objeto_gasto_detalle_pk PRIMARY KEY (id)
+)
+115030 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.RUBRO_OBJETO_GASTO_DETALLE IS 'tabla de la relacion entra objeto de gastos y al rubro que va presupuestado. mas la fuente de financiamiento'
+115030 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.id IS 'id del presupuesto'
+115030 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.rubro_id IS 'rubro al que corresponde el detalle de gasto'
+115030 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.objeto_gasto_id IS 'id del objeto de gasto'
+115030 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.fuente_financiamiento_id IS 'id de la fuente de financimento'
+115030 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.monto_presupuesto IS 'monto presupuestado'
+115031 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE SEQUENCE public.tipo_funcionario_tipo_funcionario_id_seq
+115034 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.tipo_funcionario (
+                tipo_funcionario_id SMALLINT NOT NULL DEFAULT nextval('public.tipo_funcionario_tipo_funcionario_id_seq'),
+                codigo CHAR(2) NOT NULL,
+                descripcion VARCHAR(24) NOT NULL,
+                activo BOOLEAN NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT tipo_funcionario_pk PRIMARY KEY (tipo_funcionario_id)
+)
+115035 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.tipo_funcionario IS 'Tabala paramétrica para tipo de funcionario.'
+115035 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.tipo_funcionario_id IS 'Clave primaria de la tabla.'
+115035 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.codigo IS 'Codigo unico'
+115035 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.descripcion IS 'Texto descriptivo'
+115035 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.activo IS 'Estado del registro'
+115036 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.usuario_creacion IS 'Nombre de usuario de creacion del registro'
+115036 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.fecha_creacion IS 'Fecha y hora de creacion del registro'
+115036 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro'
+115036 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_funcionario.fecha_modificacion IS 'Fecha y hora de creacion del registro'
+115036 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.tipo_funcionario_tipo_funcionario_id_seq OWNED BY public.tipo_funcionario.tipo_funcionario_id
+115036 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE INDEX tipo_funcionario_codigo_idx
+ ON public.tipo_funcionario
+ ( codigo ASC )
+115037 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.tipo_discapacidad_tipo_discapacidad_id_seq
+115037 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.tipo_discapacidad (
+                tipo_discapacidad_id SMALLINT NOT NULL DEFAULT nextval('public.tipo_discapacidad_tipo_discapacidad_id_seq'),
+                codigo CHAR(2) NOT NULL,
+                descripcion VARCHAR(24) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT tipo_discapacidad_pk PRIMARY KEY (tipo_discapacidad_id)
+)
+115037 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.tipo_discapacidad IS 'Tabala paramétrica para tipo de discapacidad.'
+115037 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.tipo_discapacidad_id IS 'Clave primaria de la tabla.'
+115038 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.codigo IS 'Codigo unico'
+115038 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.descripcion IS 'Texto descriptivo'
+115038 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.activo IS 'Estado del registro'
+115038 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.usuario_creacion IS 'Nombre de usuario de creacion del registro'
+115038 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.fecha_creacion IS 'Fecha y hora de creacion del registro'
+115038 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro'
+115038 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.tipo_discapacidad.fecha_modificacion IS 'Fecha y hora de la ultima modificacion del registro'
+115039 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.tipo_discapacidad_tipo_discapacidad_id_seq OWNED BY public.tipo_discapacidad.tipo_discapacidad_id
+115039 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.persona_persona_id_seq
+115039 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.persona (
+                persona_id INTEGER NOT NULL DEFAULT nextval('public.persona_persona_id_seq'),
+                tipo_discapacidad_id SMALLINT NOT NULL,
+                documento VARCHAR(20) NOT NULL,
+                nombre VARCHAR(64) NOT NULL,
+                apellido VARCHAR(64) NOT NULL,
+                sexo VARCHAR(12) NOT NULL,
+                fecha_nacimiento DATE NOT NULL,
+                activo BOOLEAN NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT persona_pk PRIMARY KEY (persona_id)
+)
+115039 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.persona IS 'Tabla para almacenar datos basico de una persona'
+115039 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.persona_id IS 'Clave primaria de la tabla.'
+115040 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.tipo_discapacidad_id IS 'Clave primaria de la tabla tipo_discapacidad.'
+115040 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.documento IS 'Numero de cedula de identidad'
+115040 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.nombre IS 'Nombres del individuo'
+115040 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.apellido IS 'Apellidos del individuo'
+115040 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.sexo IS 'M para masuculino y F para femenino'
+115040 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.fecha_nacimiento IS 'Natalicio'
+115040 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.activo IS 'Estado del registro'
+115041 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.usuario_creacion IS 'Nombre de usuario de creacion del registro'
+115041 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.fecha_creacion IS 'Fecha y hora de creacion del registro'
+115041 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro'
+115041 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.persona.fecha_modificacion IS 'Fecha y hora de creacion del registro'
+115041 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.persona_persona_id_seq OWNED BY public.persona.persona_id
+115041 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE UNIQUE INDEX persona_documento_idx
+ ON public.persona USING BTREE
+ ( documento ASC )
+115041 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.nivel_nivel_id_seq
+115042 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.nivel (
+                nivel_id SMALLINT NOT NULL DEFAULT nextval('public.nivel_nivel_id_seq'),
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(64) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT nivel_pk PRIMARY KEY (nivel_id)
+)
+115042 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.nivel IS 'Tabla que almacena el listado de niveles de la organización del estado Paraguayo'
+115042 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.nivel_id IS 'Clave primeria'
+115042 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.codigo IS 'Codigo unico'
+115042 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.descripcion IS 'Texto descriptivo'
+115042 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.activo IS 'Estado del registro'
+115042 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.usuario_creacion IS 'Nombre de usuario de creacion del registro'
+115043 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.fecha_creacion IS 'Fecha y hora de creacion del registro'
+115061 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro'
+115061 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.nivel.fecha_modificacion IS 'Fecha y hora de creacion del registro'
+115061 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.nivel_nivel_id_seq OWNED BY public.nivel.nivel_id
+115061 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE UNIQUE INDEX nivel_codigo_idx
+ ON public.nivel USING BTREE
+ ( codigo ASC )
+115061 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.entidad_entidad_id_seq
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.entidad (
+                entidad_id SMALLINT NOT NULL DEFAULT nextval('public.entidad_entidad_id_seq'),
+                nivel_id SMALLINT NOT NULL,
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(128) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT entidad_pk PRIMARY KEY (entidad_id)
+)
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.entidad IS 'Tabla que almacena el listado de entidades. Relacionado con la tabla NIVEL'
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.entidad_id IS 'Clave primeria para la tabla entidad'
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.nivel_id IS 'Clave primeria para la tabla nivel'
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.codigo IS 'Codigo unico'
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.descripcion IS 'Texto descriptivo'
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.activo IS 'Estado del registro'
+115062 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.usuario_creacion IS 'Nombre de usuario de creacion del registro'
+115063 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.fecha_creacion IS 'Fecha y hora de creacion del registro'
+115063 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro'
+115063 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.entidad.fecha_modificacion IS 'Fecha y hora de creacion del registro'
+115063 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.entidad_entidad_id_seq OWNED BY public.entidad.entidad_id
+115063 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE INDEX entidad_codigo_idx
+ ON public.entidad
+ ( codigo )
+115063 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.oee_oee_id_seq
+115063 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.oee (
+                oee_id SMALLINT NOT NULL DEFAULT nextval('public.oee_oee_id_seq'),
+                entidad_id SMALLINT NOT NULL,
+                codigo SMALLINT NOT NULL,
+                descripcion VARCHAR(64) NOT NULL,
+                correo VARCHAR(60) NOT NULL,
+                activo BOOLEAN DEFAULT true NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT oee_pk PRIMARY KEY (oee_id)
+)
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.oee IS 'Tabla que almacena el listado de los organismos y entidades del Estado (OEE)'
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.oee_id IS 'Clave primeria para la tabla oee'
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.entidad_id IS 'Clave primeria para la tabla entidad'
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.codigo IS 'Codigo unico'
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.descripcion IS 'Texto descriptivo'
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.correo IS 'correo de la institucion'
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.activo IS 'Estado del registro'
+115064 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.usuario_creacion IS 'Nombre de usuario de creacion del registro'
+115065 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.fecha_creacion IS 'Fecha y hora de creacion del registro'
+115065 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro'
+115065 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.oee.fecha_modificacion IS 'Fecha y hora de creacion del registro'
+115065 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.oee_oee_id_seq OWNED BY public.oee.oee_id
+115065 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE INDEX oee_codigo_idx
+ ON public.oee USING BTREE
+ ( codigo ASC )
+115065 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.funcionario_funcionario_id_seq
+115066 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.funcionario (
+                funcionario_id INTEGER NOT NULL DEFAULT nextval('public.funcionario_funcionario_id_seq'),
+                persona_id INTEGER NOT NULL,
+                oee_id SMALLINT NOT NULL,
+                tipo_funcionario_id SMALLINT NOT NULL,
+                activo BOOLEAN NOT NULL,
+                usuario_creacion VARCHAR(16) NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
+                usuario_modificacion VARCHAR(16),
+                fecha_modificacion TIMESTAMP,
+                CONSTRAINT funcionario_pk PRIMARY KEY (funcionario_id)
+)
+115066 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.funcionario IS 'Tabla para almacenar funcionarios publicos'
+115066 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.funcionario_id IS 'Clave primaria de la tabla.'
+115066 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.persona_id IS 'Clave primaria de la tabla.'
+115066 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.oee_id IS 'Clave primeria para la tabla oee'
+115066 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.tipo_funcionario_id IS 'Clave primaria de la tabla.'
+115066 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.activo IS 'Estado del registro'
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.usuario_creacion IS 'Nombre de usuario de creacion del registro'
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.fecha_creacion IS 'Fecha y hora de creacion del registro'
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro'
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario.fecha_modificacion IS 'Fecha y hora de creacion del registro'
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.funcionario_funcionario_id_seq OWNED BY public.funcionario.funcionario_id
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.funcionario_rubro (
+                id BIGINT NOT NULL,
+                funcionario_id INTEGER NOT NULL,
+                rubro_id BIGINT NOT NULL,
+                CONSTRAINT funcionario_rubro_pk PRIMARY KEY (id)
+)
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.funcionario_rubro IS 'relacion del rubro que pertenece al funcionario'
+115067 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario_rubro.funcionario_id IS 'Clave primaria de la tabla.'
+115068 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.funcionario_rubro.rubro_id IS 'id del rubro'
+115068 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+CREATE TABLE public.PAGO (
+                id BIGINT NOT NULL,
+                funcionario_rubro_id BIGINT NOT NULL,
+                monto_devengado VARCHAR DEFAULT 0 NOT NULL,
+                mes SMALLINT NOT NULL,
+                CONSTRAINT pago_pk PRIMARY KEY (id)
+)
+115068 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE public.PAGO IS 'registro de pago al funcionario'
+115068 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.PAGO.monto_devengado IS 'monto pagado al funcionado'
+115068 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN public.PAGO.mes IS 'mes del pago'
+115070 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER TABLE public.RUBRO ADD CONSTRAINT funciones_rubro_fk
+FOREIGN KEY (funcion_id)
+REFERENCES public.FUNCIONES (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115070 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.RUBRO_OBJETO_GASTO_DETALLE ADD CONSTRAINT fuente_financiamiento_presupuesto_fk
+FOREIGN KEY (fuente_financiamiento_id)
+REFERENCES public.FUENTE_FINANCIAMIENTO (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115071 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.RUBRO ADD CONSTRAINT cargo_rubro_fk
+FOREIGN KEY (cargo_id)
+REFERENCES public.CARGO (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115072 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.RUBRO ADD CONSTRAINT categoria_rubro_fk
+FOREIGN KEY (categoria_id)
+REFERENCES public.CATEGORIA (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115072 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.RUBRO ADD CONSTRAINT linea_rubro_fk
+FOREIGN KEY (linea_id)
+REFERENCES public.LINEA (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115073 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.RUBRO_OBJETO_GASTO_DETALLE ADD CONSTRAINT objeto_gasto_presupuesto_fk
+FOREIGN KEY (objeto_gasto_id)
+REFERENCES public.OBJETO_GASTO (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115074 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.RUBRO_OBJETO_GASTO_DETALLE ADD CONSTRAINT rubro_presupuestado_fk
+FOREIGN KEY (rubro_id)
+REFERENCES public.RUBRO (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115074 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.funcionario_rubro ADD CONSTRAINT rubro_funcionario_rubro_fk
+FOREIGN KEY (rubro_id)
+REFERENCES public.RUBRO (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115075 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.funcionario ADD CONSTRAINT tipo_funcionario_funcionario_fk
+FOREIGN KEY (tipo_funcionario_id)
+REFERENCES public.tipo_funcionario (tipo_funcionario_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115075 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.persona ADD CONSTRAINT tipo_discapacidad_persona_fk
+FOREIGN KEY (tipo_discapacidad_id)
+REFERENCES public.tipo_discapacidad (tipo_discapacidad_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115075 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.funcionario ADD CONSTRAINT persona_funcionario_fk
+FOREIGN KEY (persona_id)
+REFERENCES public.persona (persona_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115075 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.entidad ADD CONSTRAINT nivel_entidad_fk
+FOREIGN KEY (nivel_id)
+REFERENCES public.nivel (nivel_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115075 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.oee ADD CONSTRAINT entidad_oee_fk
+FOREIGN KEY (entidad_id)
+REFERENCES public.entidad (entidad_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115076 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.funcionario ADD CONSTRAINT oee_funcionario_fk
+FOREIGN KEY (oee_id)
+REFERENCES public.oee (oee_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115076 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.funcionario_rubro ADD CONSTRAINT funcionario_funcionario_rubro_fk
+FOREIGN KEY (funcionario_id)
+REFERENCES public.funcionario (funcionario_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115077 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.PAGO ADD CONSTRAINT funcionario_rubro_pago_fk
+FOREIGN KEY (funcionario_rubro_id)
+REFERENCES public.funcionario_rubro (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+115081 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :148
