@@ -436,14 +436,14 @@
   <notepads>
   </notepads>
   <connection>
-    <name>BigData-Lab1</name>
-    <server>localhost</server>
+    <name>bigdata-db</name>
+    <server>${DB_HOST}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>laboratorio</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aa7f2e4bb16bd64d980aac9</password>
+    <database>${DB_NAME}</database>
+    <port>${DB_PORT}</port>
+    <username>${DB_USER}</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce71da9fa6d4</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -462,7 +462,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
+        <attribute>${DB_PORT}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -564,14 +564,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>BigData-Lab1</connection>
+    <connection>bigdata-db</connection>
     <skip_lookup>N</skip_lookup>
     <commit>100</commit>
     <use_batch>N</use_batch>
     <error_ignored>N</error_ignored>
     <ignore_flag_field/>
     <lookup>
-      <schema>public</schema>
+      <schema>${DB_SCHEMA}</schema>
       <table>nivel</table>
       <key>
         <name>nivel_id</name>
@@ -606,90 +606,6 @@
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar columnas necesarias para modificar</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>usuario_modificacion</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>grupo_01</nullif>
-        <length>16</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>fecha_modificacion</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>464</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar fecha actual 2</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>fechaActual</field_name>
-      <formula_string>NOW()</formula_string>
-      <value_type>Timestamp</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field>fecha_modificacion</replace_field>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>272</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -758,6 +674,57 @@
     </GUI>
   </step>
   <step>
+    <name>Agregar columnas necesarias para modificar</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>usuario_modificacion</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>grupo_01</nullif>
+        <length>16</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>fecha_modificacion</name>
+        <type>Timestamp</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Agregar fecha actual</name>
     <type>Formula</type>
     <description/>
@@ -791,6 +758,39 @@
     </GUI>
   </step>
   <step>
+    <name>Agregar fecha actual 2</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>fechaActual</field_name>
+      <formula_string>NOW()</formula_string>
+      <value_type>Timestamp</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field>fecha_modificacion</replace_field>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Consulta nivel en BD</name>
     <type>TableInput</type>
     <description/>
@@ -801,7 +801,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>BigData-Lab1</connection>
+    <connection>bigdata-db</connection>
     <sql>SELECT nivel_id, codigo, descripcion FROM nivel </sql>
     <limit>0</limit>
     <lookup/>
@@ -816,7 +816,7 @@
         <name>nivel_id</name>
         <length>4</length>
         <precision>0</precision>
-        <origin>Consulta Nivel</origin>
+        <origin>Consulta nivel en BD</origin>
         <comments>nivel_id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -839,7 +839,7 @@
         <name>codigo</name>
         <length>4</length>
         <precision>0</precision>
-        <origin>Consulta Nivel</origin>
+        <origin>Consulta nivel en BD</origin>
         <comments>codigo</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -862,7 +862,7 @@
         <name>descripcion</name>
         <length>64</length>
         <precision>-1</precision>
-        <origin>Consulta Nivel</origin>
+        <origin>Consulta nivel en BD</origin>
         <comments>descripcion</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -951,7 +951,7 @@
     <separator>,</separator>
     <enclosure>"</enclosure>
     <header>Y</header>
-    <buffer_size>50000</buffer_size>
+    <buffer_size>200000</buffer_size>
     <lazy_conversion>Y</lazy_conversion>
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
@@ -1384,65 +1384,65 @@
     <dynamic_include_subfolders>N</dynamic_include_subfolders>
     <limit>0</limit>
     <file>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_1.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_3.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_2.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_4.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_3.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_5.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_4.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_6.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_5.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_7.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_6.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_8.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_7.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_9.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_8.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_10.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_9.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_11.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_10.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_12.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_11.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_1.csv</name>
       <filemask/>
       <exclude_filemask/>
-      <file_required>Y</file_required>
+      <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>H:\Facultad\Big Data\Data Set\funcionarios_2020_12.csv</name>
+      <name>${DATASET_PATH}\funcionarios_2020_2.csv</name>
       <filemask/>
       <exclude_filemask/>
-      <file_required>Y</file_required>
+      <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
     <attributes/>
@@ -1470,8 +1470,8 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>BigData-Lab1</connection>
-    <schema>public</schema>
+    <connection>bigdata-db</connection>
+    <schema>${DB_SCHEMA}</schema>
     <table>nivel</table>
     <commit>1000</commit>
     <truncate>N</truncate>
