@@ -14,9 +14,9 @@ CREATE TABLE public.FUENTE_FINANCIAMIENTO (
 );
 COMMENT ON COLUMN public.FUENTE_FINANCIAMIENTO.descripcion IS 'codigo de la linea presupuestaria {10, 20, 30}';
 
-
+CREATE SEQUENCE public.id_cargo_seq;
 CREATE TABLE public.CARGO (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.id_cargo_seq'),
                 descripcion VARCHAR(180) NOT NULL,
                 CONSTRAINT cargo_pk PRIMARY KEY (id)
 );
@@ -245,11 +245,10 @@ CREATE INDEX entidad_codigo_idx
 CREATE SEQUENCE public.oee_oee_id_seq;
 
 CREATE TABLE public.oee (
-                oee_id SMALLINT NOT NULL DEFAULT nextval('public.oee_oee_id_seq'),
+                oee_id INTEGER NOT NULL DEFAULT nextval('public.oee_oee_id_seq'),
                 entidad_id SMALLINT NOT NULL,
                 codigo SMALLINT NOT NULL,
-                descripcion VARCHAR(64) NOT NULL,
-                correo VARCHAR(60) NOT NULL,
+                descripcion VARCHAR(128) NOT NULL,
                 activo BOOLEAN DEFAULT true NOT NULL,
                 usuario_creacion VARCHAR(16) NOT NULL,
                 fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
@@ -262,7 +261,6 @@ COMMENT ON COLUMN public.oee.oee_id IS 'Clave primeria para la tabla oee';
 COMMENT ON COLUMN public.oee.entidad_id IS 'Clave primeria para la tabla entidad';
 COMMENT ON COLUMN public.oee.codigo IS 'Codigo unico';
 COMMENT ON COLUMN public.oee.descripcion IS 'Texto descriptivo';
-COMMENT ON COLUMN public.oee.correo IS 'correo de la institucion';
 COMMENT ON COLUMN public.oee.activo IS 'Estado del registro';
 COMMENT ON COLUMN public.oee.usuario_creacion IS 'Nombre de usuario de creacion del registro';
 COMMENT ON COLUMN public.oee.fecha_creacion IS 'Fecha y hora de creacion del registro';

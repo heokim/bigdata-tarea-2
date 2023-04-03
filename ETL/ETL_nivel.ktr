@@ -437,12 +437,12 @@
   </notepads>
   <connection>
     <name>bigdata-db</name>
-    <server>${DB_HOST}</server>
+    <server>${V_DB_HOST}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>${DB_NAME}</database>
-    <port>${DB_PORT}</port>
-    <username>${DB_USER}</username>
+    <database>${V_DB_NAME}</database>
+    <port>${V_DB_PORT}</port>
+    <username>${V_DB_USER}</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce71da9fa6d4</password>
     <servername/>
     <data_tablespace/>
@@ -462,7 +462,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>${DB_PORT}</attribute>
+        <attribute>${V_DB_PORT}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -571,7 +571,7 @@
     <error_ignored>N</error_ignored>
     <ignore_flag_field/>
     <lookup>
-      <schema>${DB_SCHEMA}</schema>
+      <schema>${V_DB_SCHEMA}</schema>
       <table>nivel</table>
       <key>
         <name>nivel_id</name>
@@ -668,7 +668,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
+      <xloc>976</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -719,8 +719,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>288</yloc>
+      <xloc>480</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -752,7 +752,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1024</xloc>
+      <xloc>1152</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -889,7 +889,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
+      <xloc>784</xloc>
       <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
@@ -928,7 +928,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
+      <xloc>608</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -963,7 +963,7 @@
         <name>anho</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -974,7 +974,7 @@
         <name>mes</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -985,7 +985,7 @@
         <name>nivel</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -996,7 +996,7 @@
         <name>descripcion_nivel</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>29</length>
@@ -1007,7 +1007,7 @@
         <name>entidad</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1018,7 +1018,7 @@
         <name>descripcion_entidad</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>53</length>
@@ -1029,7 +1029,7 @@
         <name>oee</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1040,7 +1040,7 @@
         <name>descripcion_oee</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>62</length>
@@ -1051,7 +1051,7 @@
         <name>documento</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>10</length>
@@ -1062,7 +1062,7 @@
         <name>nombres</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>17</length>
@@ -1073,7 +1073,7 @@
         <name>apellidos</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>21</length>
@@ -1084,7 +1084,7 @@
         <name>funcion</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>48</length>
@@ -1095,7 +1095,7 @@
         <name>estado</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>10</length>
@@ -1106,7 +1106,7 @@
         <name>carga_horaria</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>13</length>
@@ -1117,7 +1117,7 @@
         <name>anho_ingreso</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1128,7 +1128,7 @@
         <name>sexo</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>9</length>
@@ -1139,7 +1139,7 @@
         <name>discapacidad</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>2</length>
@@ -1150,7 +1150,7 @@
         <name>tipo_discapacidad</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1161,7 +1161,7 @@
         <name>fuente_financiamiento</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1172,7 +1172,7 @@
         <name>objeto_gasto</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1183,7 +1183,7 @@
         <name>concepto</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>27</length>
@@ -1194,7 +1194,7 @@
         <name>linea</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>9</length>
@@ -1205,7 +1205,7 @@
         <name>categoria</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>3</length>
@@ -1216,7 +1216,7 @@
         <name>cargo</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>86</length>
@@ -1227,7 +1227,7 @@
         <name>presupuestado</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1238,7 +1238,7 @@
         <name>devengado</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1249,7 +1249,7 @@
         <name>movimiento</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1260,7 +1260,7 @@
         <name>lugar</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1271,7 +1271,7 @@
         <name>fecha_nacimiento</name>
         <type>Date</type>
         <format>yyyy/MM/dd HH:mm:ss.SSS</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1282,7 +1282,7 @@
         <name>fec_ult_modif</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>29</length>
@@ -1293,7 +1293,7 @@
         <name>uri</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>47</length>
@@ -1304,7 +1304,7 @@
         <name>fecha_acto</name>
         <type>Date</type>
         <format>yyyy/MM/dd HH:mm:ss.SSS</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1315,7 +1315,7 @@
         <name>correo</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>33</length>
@@ -1326,7 +1326,7 @@
         <name>profesion</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>41</length>
@@ -1337,7 +1337,7 @@
         <name>motivo_movimiento</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1384,62 +1384,62 @@
     <dynamic_include_subfolders>N</dynamic_include_subfolders>
     <limit>0</limit>
     <file>
-      <name>${DATASET_PATH}\funcionarios_2020_3.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_3.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_4.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_4.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_5.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_5.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_6.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_6.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_7.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_7.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_8.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_8.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_9.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_9.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_10.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_10.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_11.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_11.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_12.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_12.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_1.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_1.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>${DATASET_PATH}\funcionarios_2020_2.csv</name>
+      <name>${V_DATASET_PATH}\funcionarios_2020_2.csv</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1471,7 +1471,7 @@
       <schema_name/>
     </partitioning>
     <connection>bigdata-db</connection>
-    <schema>${DB_SCHEMA}</schema>
+    <schema>${V_DB_SCHEMA}</schema>
     <table>nivel</table>
     <commit>1000</commit>
     <truncate>N</truncate>
@@ -1518,7 +1518,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
+      <xloc>1264</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1553,7 +1553,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
+      <xloc>784</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1638,7 +1638,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
+      <xloc>384</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1680,7 +1680,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
+      <xloc>784</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>

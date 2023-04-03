@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>ETL_entidad</name>
+    <name>ETL_cargo</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -427,9 +428,9 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2023/03/11 20:25:34.954</created_date>
+    <created_date>2023/04/02 21:45:45.317</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2023/03/11 20:25:34.954</modified_date>
+    <modified_date>2023/04/02 21:45:45.317</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -489,92 +490,32 @@
   <order>
     <hop>
       <from>Extraer CSV</from>
-      <to>Obtener entidad</to>
+      <to>Obtener cargo_descripcion</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Obtener entidad</from>
-      <to>Ordenar nivel por codigo entidad</to>
+      <from>Ordenar cargo_descripcion alfabeticamente</from>
+      <to>Eliminar duplicados cargo_descripcion</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Ordenar nivel por codigo entidad</from>
-      <to>Eliminar duplicados entidad</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Eliminar duplicados entidad</from>
-      <to>Checksum Origen</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Checksum Origen</from>
-      <to>Verificar existencia en BD</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Consulta nivel en BD</from>
-      <to>Checksum destino</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Checksum destino</from>
-      <to>Verificar existencia en BD</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Checksum nivel id origen</from>
-      <to>Cruzar entidad/nivel insert</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Obtener nivel_id en BD </from>
-      <to>Checksum nivel id bd</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Checksum nivel id bd</from>
-      <to>Cruzar entidad/nivel insert</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Agregar fecha actual</from>
+      <from>agregar secuencia</from>
       <to>Insertar</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Agregar columnas necesarias para insertar</from>
-      <to>Agregar fecha actual</to>
+      <from>Obtener cargo_descripcion</from>
+      <to>descripcion nulas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Verificar existencia en BD</from>
-      <to>Checksum nivel id origen</to>
+      <from>descripcion nulas</from>
+      <to>Ordenar cargo_descripcion alfabeticamente</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Cruzar entidad/nivel insert</from>
-      <to>Insertar o Modificar</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Insertar o Modificar</from>
-      <to>Agregar columnas necesarias para insertar</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Agregar fecha actual 2</from>
-      <to>Actualizar</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Agregar columnas necesarias para modificar</from>
-      <to>Agregar fecha actual 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Insertar o Modificar</from>
-      <to>Agregar columnas necesarias para modificar</to>
+      <from>Eliminar duplicados cargo_descripcion</from>
+      <to>agregar secuencia</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -583,582 +524,6 @@
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>Actualizar</name>
-    <type>Update</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>bigdata-db</connection>
-    <skip_lookup>N</skip_lookup>
-    <commit>100</commit>
-    <use_batch>N</use_batch>
-    <error_ignored>N</error_ignored>
-    <ignore_flag_field/>
-    <lookup>
-      <schema>public</schema>
-      <table>entidad</table>
-      <key>
-        <name>entidad_id</name>
-        <field>entidad_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>codigo</name>
-        <rename>codigo_entidad</rename>
-      </value>
-      <value>
-        <name>descripcion</name>
-        <rename>descripcion_entidad</rename>
-      </value>
-      <value>
-        <name>usuario_modificacion</name>
-        <rename>usuario_modificacion</rename>
-      </value>
-      <value>
-        <name>fecha_modificacion</name>
-        <rename>fecha_modificacion</rename>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1184</xloc>
-      <yloc>608</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar columnas necesarias para insertar</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>activo</name>
-        <type>Boolean</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>true</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>usuario_creacion</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>grupo_01</nullif>
-        <length>16</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>fecha_creacion</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1024</xloc>
-      <yloc>496</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar columnas necesarias para modificar</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>usuario_modificacion</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>grupo_01</nullif>
-        <length>16</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>fecha_modificacion</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>848</xloc>
-      <yloc>608</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar fecha actual</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>fechaActual</field_name>
-      <formula_string>NOW()</formula_string>
-      <value_type>Timestamp</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field>fecha_creacion</replace_field>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1200</xloc>
-      <yloc>496</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar fecha actual 2</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>fechaActual</field_name>
-      <formula_string>NOW()</formula_string>
-      <value_type>Timestamp</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field>fecha_modificacion</replace_field>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1056</xloc>
-      <yloc>608</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Checksum Origen</name>
-    <type>CheckSum</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <checksumtype>MD5</checksumtype>
-    <resultfieldName>codigo_control_origen</resultfieldName>
-    <resultType>hexadecimal</resultType>
-    <compatibilityMode>N</compatibilityMode>
-    <oldChecksumBehaviour>N</oldChecksumBehaviour>
-    <evaluationMethod>BYTES</evaluationMethod>
-    <fields>
-      <field>
-        <name>codigo_entidad</name>
-      </field>
-      <field>
-        <name>descripcion_entidad</name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Checksum destino</name>
-    <type>CheckSum</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <checksumtype>MD5</checksumtype>
-    <resultfieldName>codigo_control_destino</resultfieldName>
-    <resultType>hexadecimal</resultType>
-    <compatibilityMode>N</compatibilityMode>
-    <oldChecksumBehaviour>N</oldChecksumBehaviour>
-    <evaluationMethod>BYTES</evaluationMethod>
-    <fields>
-      <field>
-        <name>codigo</name>
-      </field>
-      <field>
-        <name>descripcion</name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Checksum nivel id bd</name>
-    <type>CheckSum</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <checksumtype>MD5</checksumtype>
-    <resultfieldName>nivel_recuperado</resultfieldName>
-    <resultType>hexadecimal</resultType>
-    <compatibilityMode>N</compatibilityMode>
-    <oldChecksumBehaviour>N</oldChecksumBehaviour>
-    <evaluationMethod>BYTES</evaluationMethod>
-    <fields>
-      <field>
-        <name>codigo_nivel_sql</name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>496</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Checksum nivel id origen</name>
-    <type>CheckSum</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <checksumtype>MD5</checksumtype>
-    <resultfieldName>nivel_insertar</resultfieldName>
-    <resultType>hexadecimal</resultType>
-    <compatibilityMode>N</compatibilityMode>
-    <oldChecksumBehaviour>N</oldChecksumBehaviour>
-    <evaluationMethod>BYTES</evaluationMethod>
-    <fields>
-      <field>
-        <name>codigo_nivel</name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>384</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Consulta nivel en BD</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>bigdata-db</connection>
-    <sql>SELECT entidad_id, codigo, descripcion FROM entidad </sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>entidad_id</name>
-        <length>4</length>
-        <precision>0</precision>
-        <origin>Consulta nivel en BD</origin>
-        <comments>entidad_id</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_PY</date_format_locale>
-        <date_format_timezone>America/Asuncion</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>codigo</name>
-        <length>4</length>
-        <precision>0</precision>
-        <origin>Consulta nivel en BD</origin>
-        <comments>codigo</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_PY</date_format_locale>
-        <date_format_timezone>America/Asuncion</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>descripcion</name>
-        <length>128</length>
-        <precision>-1</precision>
-        <origin>Consulta nivel en BD</origin>
-        <comments>descripcion</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_PY</date_format_locale>
-        <date_format_timezone>America/Asuncion</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>32</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Cruzar entidad/nivel insert</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <from>Checksum nivel id bd</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>nivel_insertar</name>
-        <field>nivel_recuperado</field>
-      </key>
-      <value>
-        <name>nivel_id_sql</name>
-        <rename>nivel_id_sql</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>496</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Eliminar duplicados entidad</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>codigo_entidad</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-      <field>
-        <name>descripcion_entidad</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-      <field>
-        <name>codigo_nivel</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>448</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Extraer CSV</name>
     <type>CsvInput</type>
@@ -1170,14 +535,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>H:\Facultad\Big Data\Data Set\funcionarios_2020_1.csv</filename>
+    <filename>filename</filename>
     <filename_field>filename</filename_field>
     <rownum_field/>
     <include_filename>N</include_filename>
     <separator>,</separator>
     <enclosure>"</enclosure>
     <header>Y</header>
-    <buffer_size>50000</buffer_size>
+    <buffer_size>200000</buffer_size>
     <lazy_conversion>Y</lazy_conversion>
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
@@ -1189,7 +554,7 @@
         <name>anho</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1200,7 +565,7 @@
         <name>mes</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1211,7 +576,7 @@
         <name>nivel</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1222,7 +587,7 @@
         <name>descripcion_nivel</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>29</length>
@@ -1233,7 +598,7 @@
         <name>entidad</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1244,7 +609,7 @@
         <name>descripcion_entidad</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>53</length>
@@ -1255,7 +620,7 @@
         <name>oee</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1266,7 +631,7 @@
         <name>descripcion_oee</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>62</length>
@@ -1277,7 +642,7 @@
         <name>documento</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>10</length>
@@ -1288,7 +653,7 @@
         <name>nombres</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>17</length>
@@ -1299,7 +664,7 @@
         <name>apellidos</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>21</length>
@@ -1310,7 +675,7 @@
         <name>funcion</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>48</length>
@@ -1321,7 +686,7 @@
         <name>estado</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>10</length>
@@ -1332,7 +697,7 @@
         <name>carga_horaria</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>13</length>
@@ -1343,7 +708,7 @@
         <name>anho_ingreso</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1354,7 +719,7 @@
         <name>sexo</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>9</length>
@@ -1365,7 +730,7 @@
         <name>discapacidad</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>2</length>
@@ -1376,7 +741,7 @@
         <name>tipo_discapacidad</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1387,7 +752,7 @@
         <name>fuente_financiamiento</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1398,7 +763,7 @@
         <name>objeto_gasto</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1409,7 +774,7 @@
         <name>concepto</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>27</length>
@@ -1420,7 +785,7 @@
         <name>linea</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>9</length>
@@ -1431,7 +796,7 @@
         <name>categoria</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>3</length>
@@ -1442,7 +807,7 @@
         <name>cargo</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>86</length>
@@ -1453,7 +818,7 @@
         <name>presupuestado</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1464,7 +829,7 @@
         <name>devengado</name>
         <type>Integer</type>
         <format>#</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>15</length>
@@ -1475,7 +840,7 @@
         <name>movimiento</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1486,7 +851,7 @@
         <name>lugar</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1497,7 +862,7 @@
         <name>fecha_nacimiento</name>
         <type>Date</type>
         <format>yyyy/MM/dd HH:mm:ss.SSS</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1508,7 +873,7 @@
         <name>fec_ult_modif</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>29</length>
@@ -1519,7 +884,7 @@
         <name>uri</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>47</length>
@@ -1530,7 +895,7 @@
         <name>fecha_acto</name>
         <type>Date</type>
         <format>yyyy/MM/dd HH:mm:ss.SSS</format>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1541,7 +906,7 @@
         <name>correo</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>33</length>
@@ -1552,7 +917,7 @@
         <name>profesion</name>
         <type>String</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>41</length>
@@ -1563,7 +928,7 @@
         <name>motivo_movimiento</name>
         <type>Boolean</type>
         <format/>
-        <currency>G</currency>
+        <currency>$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>-1</length>
@@ -1580,8 +945,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>32</xloc>
-      <yloc>256</yloc>
+      <xloc>160</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1610,16 +975,6 @@
     <dynamic_include_subfolders>N</dynamic_include_subfolders>
     <limit>0</limit>
     <file>
-      <name>${V_DATASET_PATH}\funcionarios_2020_1.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>${V_DATASET_PATH}\funcionarios_2020_2.csv</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>Y</file_required>
-      <include_subfolders>N</include_subfolders>
       <name>${V_DATASET_PATH}\funcionarios_2020_3.csv</name>
       <filemask/>
       <exclude_filemask/>
@@ -1670,6 +1025,16 @@
       <exclude_filemask/>
       <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
+      <name>${V_DATASET_PATH}\funcionarios_2020_1.csv</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name>${V_DATASET_PATH}\funcionarios_2020_2.csv</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
     </file>
     <attributes/>
     <cluster_schema/>
@@ -1681,115 +1046,12 @@
     </remotesteps>
     <GUI>
       <xloc>32</xloc>
-      <yloc>128</yloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertar</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>bigdata-db</connection>
-    <schema>public</schema>
-    <table>entidad</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>nivel_id</column_name>
-        <stream_name>nivel_id_sql</stream_name>
-      </field>
-      <field>
-        <column_name>codigo</column_name>
-        <stream_name>codigo_entidad</stream_name>
-      </field>
-      <field>
-        <column_name>descripcion</column_name>
-        <stream_name>descripcion_entidad</stream_name>
-      </field>
-      <field>
-        <column_name>activo</column_name>
-        <stream_name>activo</stream_name>
-      </field>
-      <field>
-        <column_name>usuario_creacion</column_name>
-        <stream_name>usuario_creacion</stream_name>
-      </field>
-      <field>
-        <column_name>fecha_creacion</column_name>
-        <stream_name>fecha_creacion</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1312</xloc>
-      <yloc>496</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insertar o Modificar</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Agregar columnas necesarias para insertar</send_true_to>
-    <send_false_to>Agregar columnas necesarias para modificar</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>entidad_id</leftvalue>
-        <function>IS NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>848</xloc>
-      <yloc>496</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Obtener entidad</name>
+    <name>Obtener cargo_descripcion</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1801,15 +1063,8 @@
     </partitioning>
     <fields>
       <field>
-        <name>entidad</name>
-        <rename>codigo_entidad</rename>
-      </field>
-      <field>
-        <name>descripcion_entidad</name>
-      </field>
-      <field>
-        <name>nivel</name>
-        <rename>codigo_nivel</rename>
+        <name>cargo</name>
+        <rename>cargo_descripcion</rename>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1822,94 +1077,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>128</xloc>
-      <yloc>256</yloc>
+      <xloc>320</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Obtener nivel_id en BD </name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>bigdata-db</connection>
-    <sql>SELECT nivel_id as nivel_id_sql, codigo as codigo_nivel_sql FROM nivel</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>nivel_id_sql</name>
-        <length>4</length>
-        <precision>0</precision>
-        <origin>Obtener nivel_id en BD </origin>
-        <comments>nivel_id_sql</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_PY</date_format_locale>
-        <date_format_timezone>America/Asuncion</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>codigo_nivel_sql</name>
-        <length>4</length>
-        <precision>0</precision>
-        <origin>Obtener nivel_id en BD </origin>
-        <comments>codigo_nivel_sql</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_PY</date_format_locale>
-        <date_format_timezone>America/Asuncion</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>384</xloc>
-      <yloc>496</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Ordenar nivel por codigo entidad</name>
+    <name>Ordenar cargo_descripcion alfabeticamente</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1928,23 +1102,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>codigo_entidad</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>descripcion_entidad</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>codigo_nivel</name>
+        <name>cargo_descripcion</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1961,39 +1119,32 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>256</yloc>
+      <xloc>688</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Verificar existencia en BD</name>
-    <type>StreamLookup</type>
+    <name>Eliminar duplicados cargo_descripcion</name>
+    <type>Unique</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>Checksum destino</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>codigo_control_origen</name>
-        <field>codigo_control_destino</field>
-      </key>
-      <value>
-        <name>entidad_id</name>
-        <rename>entidad_id</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>cargo_descripcion</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -2003,8 +1154,126 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>256</yloc>
+      <xloc>912</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>agregar secuencia</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>seq_id_cargo</valuename>
+    <use_database>Y</use_database>
+    <connection>bigdata-db</connection>
+    <schema>public</schema>
+    <seqname>id_cargo_seq</seqname>
+    <use_counter>N</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1104</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertar</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>bigdata-db</connection>
+    <schema>${V_DB_SCHEMA}</schema>
+    <table>cargo</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>descripcion</column_name>
+        <stream_name>cargo_descripcion</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1344</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>descripcion nulas</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Ordenar cargo_descripcion alfabeticamente</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>cargo_descripcion</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
