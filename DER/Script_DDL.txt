@@ -1,26 +1,38 @@
 
+CREATE SEQUENCE public.funciones_id_seq;
+
 CREATE TABLE public.FUNCIONES (
-                id BIGINT NOT NULL,
+                id BIGINT NOT NULL DEFAULT nextval('public.funciones_id_seq'),
                 descripcion VARCHAR NOT NULL,
                 CONSTRAINT funciones_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN public.FUNCIONES.descripcion IS 'descripcion de la funcion que cumple el funcionario';
 
 
+ALTER SEQUENCE public.funciones_id_seq OWNED BY public.FUNCIONES.id;
+
+CREATE SEQUENCE public.fuente_financiamiento_id_seq;
+
 CREATE TABLE public.FUENTE_FINANCIAMIENTO (
-                id SMALLINT NOT NULL,
+                id SMALLINT NOT NULL DEFAULT nextval('public.fuente_financiamiento_id_seq'),
                 descripcion SMALLINT,
                 CONSTRAINT fuente_financiamiento_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN public.FUENTE_FINANCIAMIENTO.descripcion IS 'codigo de la linea presupuestaria {10, 20, 30}';
 
-CREATE SEQUENCE public.id_cargo_seq;
+
+ALTER SEQUENCE public.fuente_financiamiento_id_seq OWNED BY public.FUENTE_FINANCIAMIENTO.id;
+
+CREATE SEQUENCE public.cargo_id_seq;
+
 CREATE TABLE public.CARGO (
-                id INTEGER NOT NULL DEFAULT nextval('public.id_cargo_seq'),
+                id INTEGER NOT NULL DEFAULT nextval('public.cargo_id_seq'),
                 descripcion VARCHAR(180) NOT NULL,
                 CONSTRAINT cargo_pk PRIMARY KEY (id)
 );
 
+
+ALTER SEQUENCE public.cargo_id_seq OWNED BY public.CARGO.id;
 
 CREATE TABLE public.dummy (
                 id SMALLINT NOT NULL,
@@ -28,16 +40,22 @@ CREATE TABLE public.dummy (
 );
 
 
+CREATE SEQUENCE public.categoria_id_seq;
+
 CREATE TABLE public.CATEGORIA (
-                id BIGINT NOT NULL,
+                id BIGINT NOT NULL DEFAULT nextval('public.categoria_id_seq'),
                 descripcion VARCHAR(10) NOT NULL,
                 CONSTRAINT categoria_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN public.CATEGORIA.descripcion IS 'codigo de la categoria del rubro';
 
 
+ALTER SEQUENCE public.categoria_id_seq OWNED BY public.CATEGORIA.id;
+
+CREATE SEQUENCE public.linea_id_seq;
+
 CREATE TABLE public.LINEA (
-                id BIGINT NOT NULL,
+                id BIGINT NOT NULL DEFAULT nextval('public.linea_id_seq'),
                 descripcion VARCHAR(16),
                 CONSTRAINT linea_pk PRIMARY KEY (id)
 );
@@ -45,8 +63,12 @@ COMMENT ON COLUMN public.LINEA.id IS 'id de la linea de presupuesto';
 COMMENT ON COLUMN public.LINEA.descripcion IS 'codigo de la linea presupuestaria';
 
 
+ALTER SEQUENCE public.linea_id_seq OWNED BY public.LINEA.id;
+
+CREATE SEQUENCE public.objeto_gasto_id_seq;
+
 CREATE TABLE public.OBJETO_GASTO (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.objeto_gasto_id_seq'),
                 codigo SMALLINT NOT NULL,
                 descripcion VARCHAR(225),
                 CONSTRAINT objeto_gasto_pk PRIMARY KEY (id)
@@ -56,8 +78,12 @@ COMMENT ON COLUMN public.OBJETO_GASTO.id IS 'id del objeto de gasto';
 COMMENT ON COLUMN public.OBJETO_GASTO.descripcion IS 'descripcion del objeto de gasto. (concepto)';
 
 
+ALTER SEQUENCE public.objeto_gasto_id_seq OWNED BY public.OBJETO_GASTO.id;
+
+CREATE SEQUENCE public.rubro_id_seq;
+
 CREATE TABLE public.RUBRO (
-                id BIGINT NOT NULL,
+                id BIGINT NOT NULL DEFAULT nextval('public.rubro_id_seq'),
                 categoria_id BIGINT NOT NULL,
                 linea_id BIGINT NOT NULL,
                 cargo_id INTEGER NOT NULL,
@@ -70,8 +96,12 @@ COMMENT ON COLUMN public.RUBRO.linea_id IS 'id de la linea de presupuesto';
 COMMENT ON COLUMN public.RUBRO.funcion_id IS 'funcion que se requiera en el rubro';
 
 
+ALTER SEQUENCE public.rubro_id_seq OWNED BY public.RUBRO.id;
+
+CREATE SEQUENCE public.rubro_objeto_gasto_detalle_id_seq;
+
 CREATE TABLE public.RUBRO_OBJETO_GASTO_DETALLE (
-                id BIGINT NOT NULL,
+                id BIGINT NOT NULL DEFAULT nextval('public.rubro_objeto_gasto_detalle_id_seq'),
                 rubro_id BIGINT NOT NULL,
                 objeto_gasto_id INTEGER NOT NULL,
                 fuente_financiamiento_id SMALLINT NOT NULL,
@@ -85,6 +115,8 @@ COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.objeto_gasto_id IS 'id del o
 COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.fuente_financiamiento_id IS 'id de la fuente de financimento';
 COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.monto_presupuesto IS 'monto presupuestado';
 
+
+ALTER SEQUENCE public.rubro_objeto_gasto_detalle_id_seq OWNED BY public.RUBRO_OBJETO_GASTO_DETALLE.id;
 
 CREATE SEQUENCE public.tipo_funcionario_tipo_funcionario_id_seq;
 
@@ -245,10 +277,11 @@ CREATE INDEX entidad_codigo_idx
 CREATE SEQUENCE public.oee_oee_id_seq;
 
 CREATE TABLE public.oee (
-                oee_id INTEGER NOT NULL DEFAULT nextval('public.oee_oee_id_seq'),
+                oee_id SMALLINT NOT NULL DEFAULT nextval('public.oee_oee_id_seq'),
                 entidad_id SMALLINT NOT NULL,
                 codigo SMALLINT NOT NULL,
-                descripcion VARCHAR(128) NOT NULL,
+                descripcion VARCHAR(64) NOT NULL,
+                correo VARCHAR(60) NOT NULL,
                 activo BOOLEAN DEFAULT true NOT NULL,
                 usuario_creacion VARCHAR(16) NOT NULL,
                 fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
@@ -261,6 +294,7 @@ COMMENT ON COLUMN public.oee.oee_id IS 'Clave primeria para la tabla oee';
 COMMENT ON COLUMN public.oee.entidad_id IS 'Clave primeria para la tabla entidad';
 COMMENT ON COLUMN public.oee.codigo IS 'Codigo unico';
 COMMENT ON COLUMN public.oee.descripcion IS 'Texto descriptivo';
+COMMENT ON COLUMN public.oee.correo IS 'correo de la institucion';
 COMMENT ON COLUMN public.oee.activo IS 'Estado del registro';
 COMMENT ON COLUMN public.oee.usuario_creacion IS 'Nombre de usuario de creacion del registro';
 COMMENT ON COLUMN public.oee.fecha_creacion IS 'Fecha y hora de creacion del registro';
@@ -302,8 +336,10 @@ COMMENT ON COLUMN public.funcionario.fecha_modificacion IS 'Fecha y hora de crea
 
 ALTER SEQUENCE public.funcionario_funcionario_id_seq OWNED BY public.funcionario.funcionario_id;
 
+CREATE SEQUENCE public.funcionario_rubro_id_seq;
+
 CREATE TABLE public.funcionario_rubro (
-                id BIGINT NOT NULL,
+                id BIGINT NOT NULL DEFAULT nextval('public.funcionario_rubro_id_seq'),
                 funcionario_id INTEGER NOT NULL,
                 rubro_id BIGINT NOT NULL,
                 CONSTRAINT funcionario_rubro_pk PRIMARY KEY (id)
@@ -313,8 +349,12 @@ COMMENT ON COLUMN public.funcionario_rubro.funcionario_id IS 'Clave primaria de 
 COMMENT ON COLUMN public.funcionario_rubro.rubro_id IS 'id del rubro';
 
 
+ALTER SEQUENCE public.funcionario_rubro_id_seq OWNED BY public.funcionario_rubro.id;
+
+CREATE SEQUENCE public.pago_id_seq;
+
 CREATE TABLE public.PAGO (
-                id BIGINT NOT NULL,
+                id BIGINT NOT NULL DEFAULT nextval('public.pago_id_seq'),
                 funcionario_rubro_id BIGINT NOT NULL,
                 monto_devengado VARCHAR DEFAULT 0 NOT NULL,
                 mes SMALLINT NOT NULL,
@@ -324,6 +364,8 @@ COMMENT ON TABLE public.PAGO IS 'registro de pago al funcionario';
 COMMENT ON COLUMN public.PAGO.monto_devengado IS 'monto pagado al funcionado';
 COMMENT ON COLUMN public.PAGO.mes IS 'mes del pago';
 
+
+ALTER SEQUENCE public.pago_id_seq OWNED BY public.PAGO.id;
 
 ALTER TABLE public.RUBRO ADD CONSTRAINT funciones_rubro_fk
 FOREIGN KEY (funcion_id)
