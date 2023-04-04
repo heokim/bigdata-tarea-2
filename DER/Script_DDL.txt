@@ -44,7 +44,7 @@ CREATE SEQUENCE public.categoria_id_seq;
 
 CREATE TABLE public.CATEGORIA (
                 id BIGINT NOT NULL DEFAULT nextval('public.categoria_id_seq'),
-                descripcion VARCHAR(10) NOT NULL,
+                descripcion VARCHAR(20) NOT NULL,
                 CONSTRAINT categoria_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN public.CATEGORIA.descripcion IS 'codigo de la categoria del rubro';
@@ -118,61 +118,21 @@ COMMENT ON COLUMN public.RUBRO_OBJETO_GASTO_DETALLE.monto_presupuesto IS 'monto 
 
 ALTER SEQUENCE public.rubro_objeto_gasto_detalle_id_seq OWNED BY public.RUBRO_OBJETO_GASTO_DETALLE.id;
 
-CREATE SEQUENCE public.tipo_funcionario_tipo_funcionario_id_seq;
-
-CREATE TABLE public.tipo_funcionario (
-                tipo_funcionario_id SMALLINT NOT NULL DEFAULT nextval('public.tipo_funcionario_tipo_funcionario_id_seq'),
-                codigo CHAR(2) NOT NULL,
-                descripcion VARCHAR(24) NOT NULL,
-                activo BOOLEAN NOT NULL,
-                usuario_creacion VARCHAR(16) NOT NULL,
-                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
-                usuario_modificacion VARCHAR(16),
-                fecha_modificacion TIMESTAMP,
-                CONSTRAINT tipo_funcionario_pk PRIMARY KEY (tipo_funcionario_id)
-);
-COMMENT ON TABLE public.tipo_funcionario IS 'Tabala paramétrica para tipo de funcionario.';
-COMMENT ON COLUMN public.tipo_funcionario.tipo_funcionario_id IS 'Clave primaria de la tabla.';
-COMMENT ON COLUMN public.tipo_funcionario.codigo IS 'Codigo unico';
-COMMENT ON COLUMN public.tipo_funcionario.descripcion IS 'Texto descriptivo';
-COMMENT ON COLUMN public.tipo_funcionario.activo IS 'Estado del registro';
-COMMENT ON COLUMN public.tipo_funcionario.usuario_creacion IS 'Nombre de usuario de creacion del registro';
-COMMENT ON COLUMN public.tipo_funcionario.fecha_creacion IS 'Fecha y hora de creacion del registro';
-COMMENT ON COLUMN public.tipo_funcionario.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN public.tipo_funcionario.fecha_modificacion IS 'Fecha y hora de creacion del registro';
-
-
-ALTER SEQUENCE public.tipo_funcionario_tipo_funcionario_id_seq OWNED BY public.tipo_funcionario.tipo_funcionario_id;
-
-CREATE INDEX tipo_funcionario_codigo_idx
- ON public.tipo_funcionario
- ( codigo ASC );
-
-CREATE SEQUENCE public.tipo_discapacidad_tipo_discapacidad_id_seq;
+CREATE SEQUENCE public.tipo_discapacidad_tipo_discapacidad_id_seq_1;
 
 CREATE TABLE public.tipo_discapacidad (
-                tipo_discapacidad_id SMALLINT NOT NULL DEFAULT nextval('public.tipo_discapacidad_tipo_discapacidad_id_seq'),
+                tipo_discapacidad_id SMALLINT NOT NULL DEFAULT nextval('public.tipo_discapacidad_tipo_discapacidad_id_seq_1'),
                 codigo CHAR(2) NOT NULL,
-                descripcion VARCHAR(24) NOT NULL,
-                activo BOOLEAN DEFAULT true NOT NULL,
-                usuario_creacion VARCHAR(16) NOT NULL,
-                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
-                usuario_modificacion VARCHAR(16),
-                fecha_modificacion TIMESTAMP,
+                descripcion VARCHAR(24),
                 CONSTRAINT tipo_discapacidad_pk PRIMARY KEY (tipo_discapacidad_id)
 );
 COMMENT ON TABLE public.tipo_discapacidad IS 'Tabala paramétrica para tipo de discapacidad.';
 COMMENT ON COLUMN public.tipo_discapacidad.tipo_discapacidad_id IS 'Clave primaria de la tabla.';
 COMMENT ON COLUMN public.tipo_discapacidad.codigo IS 'Codigo unico';
 COMMENT ON COLUMN public.tipo_discapacidad.descripcion IS 'Texto descriptivo';
-COMMENT ON COLUMN public.tipo_discapacidad.activo IS 'Estado del registro';
-COMMENT ON COLUMN public.tipo_discapacidad.usuario_creacion IS 'Nombre de usuario de creacion del registro';
-COMMENT ON COLUMN public.tipo_discapacidad.fecha_creacion IS 'Fecha y hora de creacion del registro';
-COMMENT ON COLUMN public.tipo_discapacidad.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN public.tipo_discapacidad.fecha_modificacion IS 'Fecha y hora de la ultima modificacion del registro';
 
 
-ALTER SEQUENCE public.tipo_discapacidad_tipo_discapacidad_id_seq OWNED BY public.tipo_discapacidad.tipo_discapacidad_id;
+ALTER SEQUENCE public.tipo_discapacidad_tipo_discapacidad_id_seq_1 OWNED BY public.tipo_discapacidad.tipo_discapacidad_id;
 
 CREATE SEQUENCE public.persona_persona_id_seq;
 
@@ -182,28 +142,18 @@ CREATE TABLE public.persona (
                 documento VARCHAR(20) NOT NULL,
                 nombre VARCHAR(64) NOT NULL,
                 apellido VARCHAR(64) NOT NULL,
-                sexo VARCHAR(12) NOT NULL,
-                fecha_nacimiento DATE NOT NULL,
-                activo BOOLEAN NOT NULL,
-                usuario_creacion VARCHAR(16) NOT NULL,
-                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
-                usuario_modificacion VARCHAR(16),
-                fecha_modificacion TIMESTAMP,
+                sexo VARCHAR(12),
+                fecha_nacimiento DATE,
                 CONSTRAINT persona_pk PRIMARY KEY (persona_id)
 );
 COMMENT ON TABLE public.persona IS 'Tabla para almacenar datos basico de una persona';
 COMMENT ON COLUMN public.persona.persona_id IS 'Clave primaria de la tabla.';
-COMMENT ON COLUMN public.persona.tipo_discapacidad_id IS 'Clave primaria de la tabla tipo_discapacidad.';
+COMMENT ON COLUMN public.persona.tipo_discapacidad_id IS 'Clave primaria de la tabla.';
 COMMENT ON COLUMN public.persona.documento IS 'Numero de cedula de identidad';
 COMMENT ON COLUMN public.persona.nombre IS 'Nombres del individuo';
 COMMENT ON COLUMN public.persona.apellido IS 'Apellidos del individuo';
 COMMENT ON COLUMN public.persona.sexo IS 'M para masuculino y F para femenino';
 COMMENT ON COLUMN public.persona.fecha_nacimiento IS 'Natalicio';
-COMMENT ON COLUMN public.persona.activo IS 'Estado del registro';
-COMMENT ON COLUMN public.persona.usuario_creacion IS 'Nombre de usuario de creacion del registro';
-COMMENT ON COLUMN public.persona.fecha_creacion IS 'Fecha y hora de creacion del registro';
-COMMENT ON COLUMN public.persona.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN public.persona.fecha_modificacion IS 'Fecha y hora de creacion del registro';
 
 
 ALTER SEQUENCE public.persona_persona_id_seq OWNED BY public.persona.persona_id;
@@ -280,8 +230,7 @@ CREATE TABLE public.oee (
                 oee_id SMALLINT NOT NULL DEFAULT nextval('public.oee_oee_id_seq'),
                 entidad_id SMALLINT NOT NULL,
                 codigo SMALLINT NOT NULL,
-                descripcion VARCHAR(64) NOT NULL,
-                correo VARCHAR(60) NOT NULL,
+                descripcion VARCHAR(128) NOT NULL,
                 activo BOOLEAN DEFAULT true NOT NULL,
                 usuario_creacion VARCHAR(16) NOT NULL,
                 fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
@@ -294,7 +243,6 @@ COMMENT ON COLUMN public.oee.oee_id IS 'Clave primeria para la tabla oee';
 COMMENT ON COLUMN public.oee.entidad_id IS 'Clave primeria para la tabla entidad';
 COMMENT ON COLUMN public.oee.codigo IS 'Codigo unico';
 COMMENT ON COLUMN public.oee.descripcion IS 'Texto descriptivo';
-COMMENT ON COLUMN public.oee.correo IS 'correo de la institucion';
 COMMENT ON COLUMN public.oee.activo IS 'Estado del registro';
 COMMENT ON COLUMN public.oee.usuario_creacion IS 'Nombre de usuario de creacion del registro';
 COMMENT ON COLUMN public.oee.fecha_creacion IS 'Fecha y hora de creacion del registro';
@@ -314,24 +262,12 @@ CREATE TABLE public.funcionario (
                 funcionario_id INTEGER NOT NULL DEFAULT nextval('public.funcionario_funcionario_id_seq'),
                 persona_id INTEGER NOT NULL,
                 oee_id SMALLINT NOT NULL,
-                tipo_funcionario_id SMALLINT NOT NULL,
-                activo BOOLEAN NOT NULL,
-                usuario_creacion VARCHAR(16) NOT NULL,
-                fecha_creacion TIMESTAMP DEFAULT now() NOT NULL,
-                usuario_modificacion VARCHAR(16),
-                fecha_modificacion TIMESTAMP,
                 CONSTRAINT funcionario_pk PRIMARY KEY (funcionario_id)
 );
 COMMENT ON TABLE public.funcionario IS 'Tabla para almacenar funcionarios publicos';
 COMMENT ON COLUMN public.funcionario.funcionario_id IS 'Clave primaria de la tabla.';
 COMMENT ON COLUMN public.funcionario.persona_id IS 'Clave primaria de la tabla.';
 COMMENT ON COLUMN public.funcionario.oee_id IS 'Clave primeria para la tabla oee';
-COMMENT ON COLUMN public.funcionario.tipo_funcionario_id IS 'Clave primaria de la tabla.';
-COMMENT ON COLUMN public.funcionario.activo IS 'Estado del registro';
-COMMENT ON COLUMN public.funcionario.usuario_creacion IS 'Nombre de usuario de creacion del registro';
-COMMENT ON COLUMN public.funcionario.fecha_creacion IS 'Fecha y hora de creacion del registro';
-COMMENT ON COLUMN public.funcionario.usuario_modificacion IS 'Nombre de usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN public.funcionario.fecha_modificacion IS 'Fecha y hora de creacion del registro';
 
 
 ALTER SEQUENCE public.funcionario_funcionario_id_seq OWNED BY public.funcionario.funcionario_id;
@@ -419,13 +355,6 @@ NOT DEFERRABLE;
 ALTER TABLE public.funcionario_rubro ADD CONSTRAINT rubro_funcionario_rubro_fk
 FOREIGN KEY (rubro_id)
 REFERENCES public.RUBRO (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.funcionario ADD CONSTRAINT tipo_funcionario_funcionario_fk
-FOREIGN KEY (tipo_funcionario_id)
-REFERENCES public.tipo_funcionario (tipo_funcionario_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
