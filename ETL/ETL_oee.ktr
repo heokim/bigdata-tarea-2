@@ -443,7 +443,7 @@
     <database>${V_DB_NAME}</database>
     <port>${V_DB_PORT}</port>
     <username>${V_DB_USER}</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce71da9fa6d4</password>
+    <password>Encrypted 2be98afc86aa7f2e4bb16bd64d980aac9</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -640,8 +640,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1536</xloc>
-      <yloc>592</yloc>
+      <xloc>1600</xloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -703,7 +703,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1360</xloc>
+      <xloc>1344</xloc>
       <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
@@ -754,8 +754,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1168</xloc>
-      <yloc>592</yloc>
+      <xloc>1104</xloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -787,7 +787,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1568</xloc>
+      <xloc>1584</xloc>
       <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
@@ -821,7 +821,7 @@
     </remotesteps>
     <GUI>
       <xloc>1424</xloc>
-      <yloc>592</yloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -859,8 +859,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>224</yloc>
+      <xloc>832</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1092,7 +1092,7 @@
     </partitioning>
     <from>Checksum entidad id bd</from>
     <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
+    <preserve_memory>N</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>
@@ -1159,8 +1159,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>752</xloc>
-      <yloc>240</yloc>
+      <xloc>704</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1182,10 +1182,10 @@
     <separator>,</separator>
     <enclosure>"</enclosure>
     <header>Y</header>
-    <buffer_size>50000</buffer_size>
+    <buffer_size>200000</buffer_size>
     <lazy_conversion>Y</lazy_conversion>
     <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
+    <parallel>Y</parallel>
     <newline_possible>N</newline_possible>
     <format>mixed</format>
     <encoding/>
@@ -1702,7 +1702,7 @@
       <schema_name/>
     </partitioning>
     <connection>bigdata-db</connection>
-    <schema>public</schema>
+    <schema>${V_DB_SCHEMA}</schema>
     <table>oee</table>
     <commit>1000</commit>
     <truncate>N</truncate>
@@ -1753,7 +1753,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1680</xloc>
+      <xloc>1728</xloc>
       <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1788,7 +1788,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1152</xloc>
+      <xloc>1104</xloc>
       <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1926,8 +1926,8 @@
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
+    <sort_size>10000000</sort_size>
+    <free_memory>90</free_memory>
     <compress>N</compress>
     <compress_variable/>
     <unique_rows>N</unique_rows>
@@ -1966,8 +1966,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>240</yloc>
+      <xloc>592</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1984,7 +1984,7 @@
     </partitioning>
     <from>Checksum destino</from>
     <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
+    <preserve_memory>N</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>

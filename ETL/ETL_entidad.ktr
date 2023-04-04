@@ -443,7 +443,7 @@
     <database>${V_DB_NAME}</database>
     <port>${V_DB_PORT}</port>
     <username>${V_DB_USER}</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce71da9fa6d4</password>
+    <password>Encrypted 2be98afc86aa7f2e4bb16bd64d980aac9</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -1087,7 +1087,7 @@
     </partitioning>
     <from>Checksum nivel id bd</from>
     <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
+    <preserve_memory>N</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>
@@ -1177,10 +1177,10 @@
     <separator>,</separator>
     <enclosure>"</enclosure>
     <header>Y</header>
-    <buffer_size>50000</buffer_size>
+    <buffer_size>200000</buffer_size>
     <lazy_conversion>Y</lazy_conversion>
     <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
+    <parallel>Y</parallel>
     <newline_possible>N</newline_possible>
     <format>mixed</format>
     <encoding/>
@@ -1921,8 +1921,8 @@
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
+    <sort_size>10000000</sort_size>
+    <free_memory>90</free_memory>
     <compress>N</compress>
     <compress_variable/>
     <unique_rows>N</unique_rows>
@@ -1979,7 +1979,7 @@
     </partitioning>
     <from>Checksum destino</from>
     <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
+    <preserve_memory>N</preserve_memory>
     <sorted_list>N</sorted_list>
     <integer_pair>N</integer_pair>
     <lookup>

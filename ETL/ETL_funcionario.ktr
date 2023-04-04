@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>ETL_nivel</name>
+    <name>ETL_funcionario</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -489,111 +490,110 @@
   <order>
     <hop>
       <from>Extraer CSV</from>
-      <to>Obtener nivel</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Obtener nivel</from>
-      <to>Ordenar nivel por codigo nivel</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Ordenar nivel por codigo nivel</from>
-      <to>Eliminar duplicados nivel</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Agregar columnas necesarias para insertar</from>
-      <to>Agregar fecha actual</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Eliminar duplicados nivel</from>
-      <to>Verificar existencia en BD</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Consulta nivel en BD</from>
-      <to>Verificar existencia en BD</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Verificar existencia en BD</from>
-      <to>Insertar o Modificar</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Insertar o Modificar</from>
-      <to>Agregar columnas necesarias para insertar</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Insertar o Modificar</from>
-      <to>Agregar columnas necesarias para modificar</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Agregar fecha actual</from>
-      <to>Insertar</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Agregar columnas necesarias para modificar</from>
-      <to>Agregar fecha actual 2</to>
+      <to>Obtener datos asociados</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Get file names</from>
       <to>Extraer CSV</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Get only 1 file name</from>
+      <to>Extraer CSV</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Agregar fecha actual 2</from>
-      <to>Actualizar</to>
+      <from>Eliminar Nulls</from>
+      <to>Ordenar alfabeticamente</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Ordenar alfabeticamente</from>
+      <to>Eliminar duplicados</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Obtener datos asociados</from>
+      <to>Eliminar Nulls</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Consulta OEE en BD</from>
+      <to>Agregar OEE ID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Eliminar duplicados</from>
+      <to>Agregar OEE ID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>persona db</from>
+      <to>Agregar Persona ID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Agregar OEE ID</from>
+      <to>Agregar Persona ID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Consulta Funcionario en BD</from>
+      <to>Agregar Funcionario ID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Agregar Persona ID</from>
+      <to>Agregar Funcionario ID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Datos de Nuevo Detalle</from>
+      <to>Crear Nuevo Funcionario</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtar Rubro Detalle</from>
+      <to>Datos de Nuevo Detalle</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Agregar Funcionario ID</from>
+      <to>Filtar Rubro Detalle</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Actualizar</name>
-    <type>Update</type>
+    <name>Agregar Funcionario ID</name>
+    <type>StreamLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>bigdata-db</connection>
-    <skip_lookup>N</skip_lookup>
-    <commit>100</commit>
-    <use_batch>N</use_batch>
-    <error_ignored>N</error_ignored>
-    <ignore_flag_field/>
+    <from>Consulta Funcionario en BD</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>N</preserve_memory>
+    <sorted_list>Y</sorted_list>
+    <integer_pair>N</integer_pair>
     <lookup>
-      <schema>${V_DB_SCHEMA}</schema>
-      <table>nivel</table>
       <key>
-        <name>nivel_id</name>
-        <field>nivel_id</field>
-        <condition>=</condition>
-        <name2/>
+        <name>oee_id</name>
+        <field>oee_id</field>
+      </key>
+      <key>
+        <name>documento</name>
+        <field>documento</field>
       </key>
       <value>
-        <name>codigo</name>
-        <rename>codigo_nivel</rename>
-      </value>
-      <value>
-        <name>descripcion</name>
-        <rename>descripcion_nivel</rename>
-      </value>
-      <value>
-        <name>usuario_modificacion</name>
-        <rename>usuario_modificacion</rename>
-      </value>
-      <value>
-        <name>fecha_modificacion</name>
-        <rename>fecha_modificacion</rename>
+        <name>funcionario_id</name>
+        <rename>funcionario_id</rename>
+        <default/>
+        <type>Integer</type>
       </value>
     </lookup>
     <attributes/>
@@ -605,60 +605,47 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>352</yloc>
+      <xloc>1088</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Agregar columnas necesarias para insertar</name>
-    <type>Constant</type>
+    <name>Agregar OEE ID</name>
+    <type>StreamLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <name>activo</name>
-        <type>Boolean</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>true</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>usuario_creacion</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>grupo_01</nullif>
-        <length>16</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>fecha_creacion</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
+    <from>Consulta OEE en BD</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>N</preserve_memory>
+    <sorted_list>Y</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>oee</name>
+        <field>oee</field>
+      </key>
+      <key>
+        <name>entidad</name>
+        <field>entidad</field>
+      </key>
+      <key>
+        <name>nivel</name>
+        <field>nivel</field>
+      </key>
+      <value>
+        <name>oee_id</name>
+        <rename>oee_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -668,48 +655,39 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1152</xloc>
-      <yloc>352</yloc>
+      <xloc>1360</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Agregar columnas necesarias para modificar</name>
-    <type>Constant</type>
+    <name>Agregar Persona ID</name>
+    <type>StreamLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <name>usuario_modificacion</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>grupo_01</nullif>
-        <length>16</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>fecha_modificacion</name>
-        <type>Timestamp</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
+    <from>persona db</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>N</preserve_memory>
+    <sorted_list>Y</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>documento</name>
+        <field>documento</field>
+      </key>
+      <value>
+        <name>persona_id</name>
+        <rename>persona_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -719,79 +697,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>352</yloc>
+      <xloc>1360</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Agregar fecha actual</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>fechaActual</field_name>
-      <formula_string>NOW()</formula_string>
-      <value_type>Timestamp</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field>fecha_creacion</replace_field>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1424</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Agregar fecha actual 2</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>fechaActual</field_name>
-      <formula_string>NOW()</formula_string>
-      <value_type>Timestamp</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field>fecha_modificacion</replace_field>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Consulta nivel en BD</name>
+    <name>Consulta Funcionario en BD</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -802,7 +714,9 @@
       <schema_name/>
     </partitioning>
     <connection>bigdata-db</connection>
-    <sql>SELECT nivel_id, codigo, descripcion FROM nivel </sql>
+    <sql>SELECT
+  *
+FROM funcionario</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -813,11 +727,11 @@
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>nivel_id</name>
-        <length>4</length>
+        <name>funcionario_id</name>
+        <length>9</length>
         <precision>0</precision>
-        <origin>Consulta nivel en BD</origin>
-        <comments>nivel_id</comments>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>funcionario_id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -836,12 +750,81 @@
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>codigo</name>
+        <name>persona_id</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>persona_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>oee_id</name>
         <length>4</length>
         <precision>0</precision>
-        <origin>Consulta nivel en BD</origin>
-        <comments>codigo</comments>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>oee_id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>tipo_funcionario_id</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>tipo_funcionario_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Boolean</type>
+        <storagetype>normal</storagetype>
+        <name>activo</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>activo</comments>
+        <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
         <currency_symbol/>
@@ -859,11 +842,80 @@
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>descripcion</name>
-        <length>64</length>
+        <name>usuario_creacion</name>
+        <length>16</length>
         <precision>-1</precision>
-        <origin>Consulta nivel en BD</origin>
-        <comments>descripcion</comments>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>usuario_creacion</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Timestamp</type>
+        <storagetype>normal</storagetype>
+        <name>fecha_creacion</name>
+        <length>6</length>
+        <precision>-1</precision>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>fecha_creacion</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>usuario_modificacion</name>
+        <length>16</length>
+        <precision>-1</precision>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>usuario_modificacion</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Timestamp</type>
+        <storagetype>normal</storagetype>
+        <name>fecha_modificacion</name>
+        <length>6</length>
+        <precision>-1</precision>
+        <origin>Consulta Funcionario en BD</origin>
+        <comments>fecha_modificacion</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -889,13 +941,298 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
-      <yloc>256</yloc>
+      <xloc>1088</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Eliminar duplicados nivel</name>
+    <name>Consulta OEE en BD</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>bigdata-db</connection>
+    <sql>select
+	o.oee_id as oee_id,
+	o.codigo as oee,
+	e.codigo as entidad,
+	n.codigo as nivel
+from
+	oee o
+join entidad e on
+	e.entidad_id = o.oee_id
+join nivel n on
+	n.nivel_id = e.nivel_id;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>oee_id</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>Consulta Rubro en BD</origin>
+        <comments>oee_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>oee</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>Consulta Rubro en BD</origin>
+        <comments>oee</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>entidad</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>Consulta Rubro en BD</origin>
+        <comments>entidad</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>nivel</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>Consulta Rubro en BD</origin>
+        <comments>nivel</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1360</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Crear Nuevo Funcionario</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>bigdata-db</connection>
+    <schema>${V_DB_SCHEMA}</schema>
+    <table>funcionario</table>
+    <commit>2000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>oee_id</column_name>
+        <stream_name>oee_id</stream_name>
+      </field>
+      <field>
+        <column_name>persona_id</column_name>
+        <stream_name>persona_id</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Datos de Nuevo Detalle</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>oee_id</name>
+      </field>
+      <field>
+        <name>persona_id</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Eliminar Nulls</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Ordenar alfabeticamente</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>documento</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>oee</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>entidad</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>nivel</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Eliminar duplicados</name>
     <type>Unique</type>
     <description/>
     <distribute>Y</distribute>
@@ -911,11 +1248,19 @@
     <error_description/>
     <fields>
       <field>
-        <name>codigo_nivel</name>
+        <name>documento</name>
         <case_insensitive>N</case_insensitive>
       </field>
       <field>
-        <name>descripcion_nivel</name>
+        <name>oee</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>entidad</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>nivel</name>
         <case_insensitive>N</case_insensitive>
       </field>
     </fields>
@@ -928,8 +1273,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>256</yloc>
+      <xloc>1184</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -944,7 +1289,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>H:\Facultad\Big Data\Data Set\funcionarios_2020_1.csv</filename>
+    <filename>filename</filename>
     <filename_field>filename</filename_field>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1354,8 +1699,62 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>256</yloc>
+      <xloc>336</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filtar Rubro Detalle</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Datos de Nuevo Detalle</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>funcionario_id</leftvalue>
+            <function>IS NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>oee_id</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>persona_id</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1454,14 +1853,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>128</yloc>
+      <xloc>176</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertar</name>
-    <type>TableOutput</type>
+    <name>Get only 1 file name</name>
+    <type>GetFileNames</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1470,45 +1869,26 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>bigdata-db</connection>
-    <schema>${V_DB_SCHEMA}</schema>
-    <table>nivel</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>codigo</column_name>
-        <stream_name>codigo_nivel</stream_name>
-      </field>
-      <field>
-        <column_name>descripcion</column_name>
-        <stream_name>descripcion_nivel</stream_name>
-      </field>
-      <field>
-        <column_name>activo</column_name>
-        <stream_name>activo</stream_name>
-      </field>
-      <field>
-        <column_name>usuario_creacion</column_name>
-        <stream_name>usuario_creacion</stream_name>
-      </field>
-      <field>
-        <column_name>fecha_creacion</column_name>
-        <stream_name>fecha_creacion</stream_name>
-      </field>
-    </fields>
+    <filter>
+      <filterfiletype>all_files</filterfiletype>
+    </filter>
+    <doNotFailIfNoFile>N</doNotFailIfNoFile>
+    <rownum>N</rownum>
+    <isaddresult>Y</isaddresult>
+    <filefield>N</filefield>
+    <rownum_field/>
+    <filename_Field/>
+    <wildcard_Field/>
+    <exclude_wildcard_Field/>
+    <dynamic_include_subfolders>N</dynamic_include_subfolders>
+    <limit>0</limit>
+    <file>
+      <name>${V_DATASET_PATH}\funcionarios_2020_12.csv</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>Y</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1518,51 +1898,16 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1568</xloc>
+      <xloc>176</xloc>
       <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertar o Modificar</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Agregar columnas necesarias para insertar</send_true_to>
-    <send_false_to>Agregar columnas necesarias para modificar</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>nivel_id</leftvalue>
-        <function>IS NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>928</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Obtener nivel</name>
+    <name>Obtener datos asociados</name>
     <type>SelectValues</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1571,11 +1916,16 @@
     </partitioning>
     <fields>
       <field>
-        <name>nivel</name>
-        <rename>codigo_nivel</rename>
+        <name>documento</name>
       </field>
       <field>
-        <name>descripcion_nivel</name>
+        <name>oee</name>
+      </field>
+      <field>
+        <name>entidad</name>
+      </field>
+      <field>
+        <name>nivel</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1588,13 +1938,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>256</yloc>
+      <xloc>560</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Ordenar nivel por codigo nivel</name>
+    <name>Ordenar alfabeticamente</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1606,14 +1956,14 @@
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
+    <sort_size>10000000</sort_size>
     <free_memory>90</free_memory>
     <compress>N</compress>
     <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>codigo_nivel</name>
+        <name>documento</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1621,7 +1971,23 @@
         <presorted>N</presorted>
       </field>
       <field>
-        <name>descripcion_nivel</name>
+        <name>oee</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>entidad</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>nivel</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1638,14 +2004,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>256</yloc>
+      <xloc>992</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Verificar existencia en BD</name>
-    <type>StreamLookup</type>
+    <name>persona db</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1654,23 +2020,179 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>Consulta nivel en BD</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>N</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>codigo_nivel</name>
-        <field>codigo</field>
-      </key>
-      <value>
-        <name>nivel_id</name>
-        <rename>nivel_id</rename>
-        <default/>
+    <connection>bigdata-db</connection>
+    <sql>SELECT
+  *
+FROM persona</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
         <type>Integer</type>
-      </value>
-    </lookup>
+        <storagetype>normal</storagetype>
+        <name>persona_id</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>persona db</origin>
+        <comments>persona_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>tipo_discapacidad_id</name>
+        <length>4</length>
+        <precision>0</precision>
+        <origin>persona db</origin>
+        <comments>tipo_discapacidad_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>documento</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>persona db</origin>
+        <comments>documento</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>nombre</name>
+        <length>64</length>
+        <precision>-1</precision>
+        <origin>persona db</origin>
+        <comments>nombre</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>apellido</name>
+        <length>64</length>
+        <precision>-1</precision>
+        <origin>persona db</origin>
+        <comments>apellido</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>sexo</name>
+        <length>12</length>
+        <precision>-1</precision>
+        <origin>persona db</origin>
+        <comments>sexo</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>fecha_nacimiento</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>persona db</origin>
+        <comments>fecha_nacimiento</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_PY</date_format_locale>
+        <date_format_timezone>America/Asuncion</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1680,8 +2202,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>256</yloc>
+      <xloc>1360</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
