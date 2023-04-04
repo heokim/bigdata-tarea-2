@@ -496,12 +496,12 @@
     <hop>
       <from>Get file names</from>
       <to>Extraer CSV</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Get only 1 file name</from>
       <to>Extraer CSV</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Eliminar Nulls</from>
@@ -1836,12 +1836,12 @@ join nivel n on
       <name>${V_DATASET_PATH}\funcionarios_2020_1.csv</name>
       <filemask/>
       <exclude_filemask/>
-      <file_required>N</file_required>
+      <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
       <name>${V_DATASET_PATH}\funcionarios_2020_2.csv</name>
       <filemask/>
       <exclude_filemask/>
-      <file_required>N</file_required>
+      <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
     <attributes/>

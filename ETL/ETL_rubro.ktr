@@ -1356,6 +1356,46 @@ FROM linea</sql>
     </GUI>
   </step>
   <step>
+    <name>Datos de Nuevo Rubro</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>cargo_id</name>
+      </field>
+      <field>
+        <name>categoria_id</name>
+      </field>
+      <field>
+        <name>funcion_id</name>
+      </field>
+      <field>
+        <name>linea_id</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
+      <yloc>496</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Eliminar Nulls</name>
     <type>FilterRows</type>
     <description/>
@@ -2002,12 +2042,12 @@ FROM linea</sql>
       <name>${V_DATASET_PATH}\funcionarios_2020_1.csv</name>
       <filemask/>
       <exclude_filemask/>
-      <file_required>N</file_required>
+      <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
       <name>${V_DATASET_PATH}\funcionarios_2020_2.csv</name>
       <filemask/>
       <exclude_filemask/>
-      <file_required>N</file_required>
+      <file_required>Y</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
     <attributes/>
@@ -2176,50 +2216,6 @@ FROM linea</sql>
     <GUI>
       <xloc>944</xloc>
       <yloc>304</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Datos de Nuevo Rubro</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>cargo_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>categoria_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>funcion_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>linea_id</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>272</xloc>
-      <yloc>496</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
