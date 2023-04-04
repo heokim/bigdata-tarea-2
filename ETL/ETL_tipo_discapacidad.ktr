@@ -507,7 +507,7 @@
     <quoteString>N</quoteString>
     <sql>INSERT INTO public.tipo_discapacidad
 (codigo, descripcion)
-values ('MU', 'MULTIPLE'),('VI', 'VISUAL'),('FI', 'FISICA'),('IN', 'INTELECTUAL'),('AU', 'AUDITIVA'),('PS', 'PSICOSOCIAL');</sql>
+values ('NA','SIN_DISCAPACIDAD'),('MU', 'MULTIPLE'),('VI', 'VISUAL'),('FI', 'FISICA'),('IN', 'INTELECTUAL'),('AU', 'AUDITIVA'),('PS', 'PSICOSOCIAL');</sql>
     <set_params>N</set_params>
     <insert_field/>
     <update_field/>

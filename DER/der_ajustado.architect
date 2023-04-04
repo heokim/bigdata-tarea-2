@@ -198,7 +198,7 @@
     <column id="COL57" populated="true" UUID="be10ecda-e5a6-4de6-b61e-d99b8ebe0d42" autoIncrement="false" autoIncrementSequenceName="tipo_discapacidad_codigo_seq" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="2" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1" userDefinedTypeUUID="67ddc63f-5541-4dd1-9236-632d9d155e80" >
      <remarks>Codigo unico</remarks>
     </column>
-    <column id="COL58" populated="true" UUID="a3a561ff-4ea9-46ec-b5d7-86d93b1e10cb" autoIncrement="false" autoIncrementSequenceName="tipo_discapacidad_descripcion_seq" defaultValue="" name="descripcion" nullable="0" physicalName="descripcion" precision="24" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL58" populated="true" UUID="a3a561ff-4ea9-46ec-b5d7-86d93b1e10cb" autoIncrement="false" autoIncrementSequenceName="tipo_discapacidad_descripcion_seq" defaultValue="" name="descripcion" nullable="1" physicalName="descripcion" precision="24" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Texto descriptivo</remarks>
     </column>
     </folder>
@@ -563,39 +563,39 @@
    <relationship id="REL162" populated="true" UUID="bccb4d55-5c53-4e0f-867b-1145e3b40b45" deferrability="7" deleteRule="3" fk-table-ref="TAB61" fkCardinality="7" identifying="false" name="tipo_funcionario_funcionario_fk" physicalName="tipo_funcionario_funcionario_fk" pk-table-ref="TAB73" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP163" populated="true" UUID="a06bf876-c15c-484a-9721-5c27ca16ab67" fk-column-ref="COL65" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL74" />
    </relationship>
-   <relationship id="REL164" populated="true" UUID="d7d148db-e7d5-437b-9112-0fe3ff4026a2" deferrability="7" deleteRule="3" fk-table-ref="TAB124" fkCardinality="7" identifying="false" name="RUBRO_PRESUPUESTADO_fk" physicalName="rubro_presupuestado_fk" pk-table-ref="TAB86" pkCardinality="2" updateRule="3" >
+   <relationship id="REL164" populated="true" UUID="d7d148db-e7d5-437b-9112-0fe3ff4026a2" deferrability="7" deleteRule="3" fk-table-ref="TAB124" fkCardinality="7" identifying="false" name="RUBRO_PRESUPUESTADO_fk" physicalName="RUBRO_PRESUPUESTADO_fk" pk-table-ref="TAB86" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP165" populated="true" UUID="5888e061-f953-4abf-b317-aa4b3ab17b15" fk-column-ref="COL126" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL87" />
    </relationship>
-   <relationship id="REL166" populated="true" UUID="0f7e7317-e4ab-46c8-bd10-6457c8c09241" deferrability="7" deleteRule="3" fk-table-ref="TAB137" fkCardinality="7" identifying="false" name="RUBRO_funcionario_rubro_fk" physicalName="rubro_funcionario_rubro_fk" pk-table-ref="TAB86" pkCardinality="2" updateRule="3" >
+   <relationship id="REL166" populated="true" UUID="0f7e7317-e4ab-46c8-bd10-6457c8c09241" deferrability="7" deleteRule="3" fk-table-ref="TAB137" fkCardinality="7" identifying="false" name="RUBRO_funcionario_rubro_fk" physicalName="RUBRO_funcionario_rubro_fk" pk-table-ref="TAB86" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP167" populated="true" UUID="10825ae3-ce2f-4a8f-94ed-c4bc065c1ec5" fk-column-ref="COL140" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL87" />
    </relationship>
-   <relationship id="REL168" populated="true" UUID="17a3efb5-5ccc-4c65-b847-032e6a6a96a1" deferrability="7" deleteRule="3" fk-table-ref="TAB124" fkCardinality="7" identifying="false" name="OBJETO_GASTO_PRESUPUESTO_fk" physicalName="objeto_gasto_presupuesto_fk" pk-table-ref="TAB94" pkCardinality="2" updateRule="3" >
+   <relationship id="REL168" populated="true" UUID="17a3efb5-5ccc-4c65-b847-032e6a6a96a1" deferrability="7" deleteRule="3" fk-table-ref="TAB124" fkCardinality="7" identifying="false" name="OBJETO_GASTO_PRESUPUESTO_fk" physicalName="OBJETO_GASTO_PRESUPUESTO_fk" pk-table-ref="TAB94" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP169" populated="true" UUID="cdba99e2-ebf5-49ba-952d-82086d9b3fe1" fk-column-ref="COL127" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL95" />
    </relationship>
-   <relationship id="REL170" populated="true" UUID="ca03439c-d10b-4124-a4f0-f9f268a36e3a" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="LINEA_RUBRO_fk" physicalName="linea_rubro_fk" pk-table-ref="TAB100" pkCardinality="2" updateRule="3" >
+   <relationship id="REL170" populated="true" UUID="ca03439c-d10b-4124-a4f0-f9f268a36e3a" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="LINEA_RUBRO_fk" physicalName="LINEA_RUBRO_fk" pk-table-ref="TAB100" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP171" populated="true" UUID="4b7da6cd-5f95-47fa-a73f-7bc445a53fe9" fk-column-ref="COL89" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL101" />
    </relationship>
-   <relationship id="REL172" populated="true" UUID="5535b175-c244-4fcb-9b7a-01212f366e21" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="CATEGORIA_RUBRO_fk" physicalName="categoria_rubro_fk" pk-table-ref="TAB105" pkCardinality="2" updateRule="3" >
+   <relationship id="REL172" populated="true" UUID="5535b175-c244-4fcb-9b7a-01212f366e21" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="CATEGORIA_RUBRO_fk" physicalName="CATEGORIA_RUBRO_fk" pk-table-ref="TAB105" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP173" populated="true" UUID="2d7a0d53-0b7c-491a-9fe3-c477fbba058e" fk-column-ref="COL88" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL106" />
    </relationship>
-   <relationship id="REL174" populated="true" UUID="3a6284db-2db0-42e9-a92f-ed8eb3fc133f" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="CARGO_RUBRO_fk" physicalName="cargo_rubro_fk" pk-table-ref="TAB114" pkCardinality="2" updateRule="3" >
+   <relationship id="REL174" populated="true" UUID="3a6284db-2db0-42e9-a92f-ed8eb3fc133f" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="CARGO_RUBRO_fk" physicalName="CARGO_RUBRO_fk" pk-table-ref="TAB114" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP175" populated="true" UUID="caadffa2-ba22-4c12-ad9a-6294ba657dfc" fk-column-ref="COL90" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL115" />
    </relationship>
-   <relationship id="REL176" populated="true" UUID="a15f2c6a-1276-43a2-8780-10a7096e3ea2" deferrability="7" deleteRule="3" fk-table-ref="TAB124" fkCardinality="7" identifying="false" name="FUENTE_FINANCIAMIENTO_PRESUPUESTO_fk" physicalName="fuente_financiamiento_presupuesto_fk" pk-table-ref="TAB119" pkCardinality="2" updateRule="3" >
+   <relationship id="REL176" populated="true" UUID="a15f2c6a-1276-43a2-8780-10a7096e3ea2" deferrability="7" deleteRule="3" fk-table-ref="TAB124" fkCardinality="7" identifying="false" name="FUENTE_FINANCIAMIENTO_PRESUPUESTO_fk" physicalName="FUENTE_FINANCIAMIENTO_PRESUPUESTO_fk" pk-table-ref="TAB119" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP177" populated="true" UUID="1ed6cc7e-8df0-4b1b-abef-a49b6af31650" fk-column-ref="COL128" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL120" />
    </relationship>
-   <relationship id="REL178" populated="true" UUID="81af8789-8baa-4d0a-8bb1-eb7011f9ad24" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="FUNCIONES_RUBRO_fk" physicalName="funciones_rubro_fk" pk-table-ref="TAB132" pkCardinality="2" updateRule="3" >
+   <relationship id="REL178" populated="true" UUID="81af8789-8baa-4d0a-8bb1-eb7011f9ad24" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="7" identifying="false" name="FUNCIONES_RUBRO_fk" physicalName="FUNCIONES_RUBRO_fk" pk-table-ref="TAB132" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP179" populated="true" UUID="65410861-f784-4fde-810a-f070c21174da" fk-column-ref="COL91" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL133" />
    </relationship>
-   <relationship id="REL180" populated="true" UUID="09a92612-01a8-4dbd-b451-2183aa1b0c7c" deferrability="7" deleteRule="3" fk-table-ref="TAB143" fkCardinality="7" identifying="false" name="funcionario_rubro_PAGO_fk" physicalName="funcionario_rubro_pago_fk" pk-table-ref="TAB137" pkCardinality="2" updateRule="3" >
+   <relationship id="REL180" populated="true" UUID="09a92612-01a8-4dbd-b451-2183aa1b0c7c" deferrability="7" deleteRule="3" fk-table-ref="TAB143" fkCardinality="7" identifying="false" name="funcionario_rubro_PAGO_fk" physicalName="funcionario_rubro_PAGO_fk" pk-table-ref="TAB137" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP181" populated="true" UUID="0e3eda8d-8a82-4284-904d-d3762e15c354" fk-column-ref="COL145" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL138" />
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="false" target-schema="public"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="true" target-schema="public"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="1.0" viewportX="125" viewportY="549" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="1.0" viewportX="42" viewportY="549" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="203" y="60" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB14" x="654" y="230" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB28" x="1105" y="346" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
